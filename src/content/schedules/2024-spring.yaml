@@ -1,0 +1,19 @@
+name: Spring 2024
+slug: spring-2024
+location: SDSS, Main Building
+blocks:
+- name: Monday & Tuesday
+  dates: ["04/15/2023", "04/16/2023"]
+  classes:
+    - course: intro-to-python
+      instructor: alice-aliceton
+    - course: intro-to-r
+      instructor: bob-bobberson
+
+- name: Wednesday & Thursday
+  dates: ["04/17/2023", "04/18/2023"]
+  classes:
+    - course: data-viz
+      instructor: carla-carlsen
+    - course: intro-to-python
+      instructor: bob-bobberson

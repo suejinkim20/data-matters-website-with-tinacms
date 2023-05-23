@@ -1,0 +1,71 @@
+name: Fall 2023
+slug: fall-2023
+location: D.H. Hill Library, first floor
+blocks:
+- name: Monday & Tuesday
+  dates: ["08/15/2023", "08/16/2023"]
+  classes:
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: bob-bobberson
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-r
+      instructor: bob-bobberson
+      location: Room 3C
+      zoom_url: https://...
+
+- name: Wednesday
+  dates: ["08/17/2023"]
+  classes:
+    - course: data-viz
+      instructor: carla-carlsen
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-r
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: alice-aliceton
+      location: Room 3C
+      zoom_url: https://...
+
+- name: Thursday & Friday
+  dates: ["08/18/2023", "08/19/2023"]
+  classes:
+    - course: data-viz
+      instructor: bob-bobberson
+      location: Room 3C
+      zoom_url: https://...
+    - course: data-viz
+      instructor: bob-bobberson
+      location: Room 3C
+      zoom_url: https://...
+    - course: data-viz
+      instructor: bob-bobberson
+      location: Room 3C
+      zoom_url: https://...
+    - course: intro-to-python
+      instructor: carla-carlsen
+      location: Room 3C
+      zoom_url: https://...
