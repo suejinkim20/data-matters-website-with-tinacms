@@ -7,6 +7,9 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+
+const shouldUseTestContent = process.env.TEST_CONTENT
+
 module.exports = {
   siteMetadata: {
     title: `Data Matters`,
@@ -29,7 +32,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
-        path: `${__dirname}/src/content`,
+        path: shouldUseTestContent ? `${__dirname}/src/test/content` : `${__dirname}/src/content`,
       },
     },
     `gatsby-transformer-remark`,

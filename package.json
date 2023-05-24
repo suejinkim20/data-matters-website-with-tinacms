@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "data-matters-website",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "website for data matters, a short course series in data science",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "email@ddr.ess",
   "dependencies": {
     "gatsby": "^5.10.0",
     "gatsby-plugin-image": "^3.10.0",
@@ -17,7 +17,10 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "@faker-js/faker": "^8.0.1",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8",
+    "yaml": "^2.3.0"
   },
   "keywords": [
     "gatsby"
@@ -27,10 +30,13 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "start": "gatsby develop",
+    "start": "TEST_CONTENT=true gatsby develop",
+    "start!": "gatsby develop",
+    "generate": "node ./src/test/content-generator.js",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "TEST_CONTENT=true jest",
+    "test!": "jest"
   },
   "repository": {
     "type": "git",

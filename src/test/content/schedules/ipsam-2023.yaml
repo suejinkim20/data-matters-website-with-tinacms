@@ -1,0 +1,78 @@
+name: ipsam 2023
+slug: ipsam-2023
+location: 2572 Russel Ville
+blocks:
+  - name: maxime nostrum
+    dates:
+      - 05/18/2023
+      - 05/19/2023
+    classes:
+      - course: praesentium-sed-deleniti
+        instructor: amie-flatley
+        location: Room 36173
+        zoom_url: https://rash-dime.net/
+      - course: temporibus-similique-autem
+        instructor: cristina-ziemann
+        location: Room 61796
+        zoom_url: https://flustered-leaker.net/
+      - course: repellat-necessitatibus-vel
+        instructor: august-hermann
+        location: Room 313
+        zoom_url: https://honored-omission.biz/
+      - course: soluta-nihil-eligendi
+        instructor: cristina-ziemann
+        location: Room 3899
+        zoom_url: https://rectangular-netball.biz
+      - course: voluptate-magnam-suscipit
+        instructor: jackeline-schneider
+        location: Room 12960
+        zoom_url: https://live-sale.net
+  - name: pariatur accusantium
+    dates:
+      - 05/20/2023
+    classes:
+      - course: praesentium-sed-deleniti
+        instructor: larue-denesik
+        location: Room 2805
+        zoom_url: https://tattered-sentencing.org/
+      - course: molestias-harum-vitae
+        instructor: ellie-jacobs
+        location: Room 11970
+        zoom_url: https://plain-volcano.name
+      - course: voluptate-magnam-suscipit
+        instructor: august-hermann
+        location: Room 4524
+        zoom_url: https://foolish-start.org/
+      - course: molestias-harum-vitae
+        instructor: amie-flatley
+        location: Room 9443
+        zoom_url: https://mean-closet.info/
+      - course: molestias-harum-vitae
+        instructor: clovis-bergnaum
+        location: Room 1020
+        zoom_url: https://shocking-sloth.org/
+  - name: molestiae expedita
+    dates:
+      - 05/21/2023
+      - 05/22/2023
+    classes:
+      - course: tenetur-autem-velit
+        instructor: larue-denesik
+        location: Room 6226
+        zoom_url: https://parallel-output.biz/
+      - course: repellat-necessitatibus-vel
+        instructor: melba-price
+        location: Room 421
+        zoom_url: https://disgusting-editor.net
+      - course: tenetur-autem-velit
+        instructor: kaci-stanton
+        location: Room 122
+        zoom_url: https://agreeable-supervision.info
+      - course: soluta-nihil-eligendi
+        instructor: clovis-bergnaum
+        location: Room 73363
+        zoom_url: https://flamboyant-sledge.biz
+      - course: tenetur-autem-velit
+        instructor: aurelio-schiller
+        location: Room 86509
+        zoom_url: https://compassionate-counselor.biz/

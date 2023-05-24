@@ -70,7 +70,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.createResolvers = ({ createResolvers }) => {
   const resolvers = {
-    instructorYaml: {
+    instructorsYaml: {
       classes: {
         type: ["CoursesYaml"],
         resolve: async (source, args, context, info) => {

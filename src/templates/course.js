@@ -33,7 +33,7 @@ export const pageQuery = graphql`
       offerings: allSchedulesYaml(filter: {
         blocks: { elemMatch: {
           classes: { elemMatch: {
-            course: { slug: { eq: "intro-to-r" } }
+            course: { slug: { eq: $slug } }
           } }
         } }
       }) {
