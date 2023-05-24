@@ -6,6 +6,9 @@ const Block = (block) => {
   return (
     <div>
       <h2>{ block.name }</h2>
+      <p>
+        { block.dates.join(', ') }
+      </p>
       <ul>
         {
           block.classes.map((c, index) => (
@@ -25,6 +28,7 @@ function ScheduleTemplate({ data: { schedule } }) {
   return (
     <Layout>
       <h1>{ schedule.name }</h1>
+      <p>Location: { schedule.location }</p>
 
       {
         schedule.blocks.map((block, index) => (
@@ -41,8 +45,10 @@ export const pageQuery = graphql`
   query ($slug: String) {
     schedule: schedulesYaml(slug: { eq: $slug }) {
       name
+      location
       blocks {
         name
+        dates
         classes {
           course {
             title
