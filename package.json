@@ -30,13 +30,13 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "start": "TEST_CONTENT=true gatsby develop",
-    "start!": "gatsby develop",
+    "start!": "TEST_CONTENT=true gatsby develop",
+    "start": "gatsby develop",
     "generate": "node ./src/test/content-generator.js",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "TEST_CONTENT=true jest",
-    "test!": "jest"
+    "test!": "TEST_CONTENT=true jest",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
