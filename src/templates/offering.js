@@ -5,10 +5,12 @@ import { Layout } from "../components/layout"
 const Block = (block) => {
   return (
     <div>
-      <h2>{ block.name }</h2>
+      <h2>Block: { block.name }</h2>
+      
       <p>
         { block.dates.join(', ') }
       </p>
+
       <ul>
         {
           block.classes.map((c, index) => (
@@ -28,6 +30,7 @@ function ScheduleTemplate({ data: { schedule } }) {
   return (
     <Layout>
       <h1>{ schedule.name }</h1>
+      
       <p>Location: { schedule.location }</p>
 
       {
@@ -35,6 +38,11 @@ function ScheduleTemplate({ data: { schedule } }) {
           <Block key={ `block-${ index }` } { ...block } />
         ))
       }
+
+      <details>
+        <summary>json</summary>
+        <pre>{ JSON.stringify(schedule, null, 2) }</pre>
+      </details>
     </Layout>
   )
 }

@@ -9,13 +9,10 @@ const InstructorsPage = ({ data }) => {
   return (
     <Layout>
       <h1>instructors</h1>
-      {
-        instructors.map(instructor => (
-          <pre key={ instructor.id } id={ instructor.slug }>
-            { JSON.stringify(instructor, null, 2) }
-          </pre>
-        ))
-      }
+      <details>
+        <summary>json</summary>
+        <pre>{ JSON.stringify(data, null, 2) }</pre>
+      </details>
     </Layout>
   )
 }

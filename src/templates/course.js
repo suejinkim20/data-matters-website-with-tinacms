@@ -1,19 +1,33 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { Layout } from "../components/layout"
 
-function CourseTemplate({ data: { course, offerings } }) {
+function CourseTemplate({ data: {
+  course,
+  offerings: { nodes: offerings }
+} }) {
 
   return (
     <Layout>
       <h1>{ course.title }</h1>
-      <pre>
-        { JSON.stringify(course, null, 2) }
-      </pre>
+      <p>description: { course.description }</p>
+      <p>prerequisites: { course.prereqs }</p>
+
       <h2>offerings</h2>
-      <pre>
-        { JSON.stringify(offerings, null, 2) }
-      </pre>
+      <ul>
+        {
+          offerings.map(({ name, path }) => (
+            <li key={ `course-${ course.title }--${ name }` }>
+              <Link to={ path }>{ name }</Link>
+            </li>
+          ))
+        }
+      </ul>
+      
+      <details>
+        <summary>json</summary>
+        <pre>{ JSON.stringify(course, null, 2) }</pre>
+      </details>
     </Layout>
   )
 }

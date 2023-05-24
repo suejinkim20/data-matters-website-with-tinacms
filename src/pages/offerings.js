@@ -18,6 +18,11 @@ const SchedulesPage = ({ data }) => {
           ))
         }
       </ul>
+      
+      <details>
+        <summary>json</summary>
+        <pre>{ JSON.stringify(data, null, 2) }</pre>
+      </details>
     </Layout>
   )
 }
