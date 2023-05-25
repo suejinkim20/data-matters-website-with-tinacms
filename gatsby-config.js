@@ -35,7 +35,6 @@ module.exports = {
         path: shouldUseTestContent ? `${__dirname}/src/test/content` : `${__dirname}/src/content`,
       },
     },
-    `gatsby-transformer-remark`,
     `gatsby-transformer-yaml-full`,
     {
       resolve: `gatsby-plugin-manifest`,

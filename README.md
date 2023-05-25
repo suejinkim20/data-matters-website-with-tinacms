@@ -1,5 +1,9 @@
 # data matters website
 
+## getting started
+
+> note: all scripts (as in, `npm run [script]`) that interface with content have text-data-focused counterparts that are run with the same command with a `!` appended. For example, to build the site with real data, run `npm run build`; to build the site with test data, run `npm run build!`.
+
 ## 🚧 local development
 
 - start development server with real content as data source: `npm run start`.

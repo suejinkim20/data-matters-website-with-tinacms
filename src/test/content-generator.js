@@ -57,7 +57,7 @@ function generateClass() {
     course: faker.helpers.arrayElement(courses).slug,
     instructor: faker.helpers.arrayElement(instructors).slug,
     location: `Room ${ faker.location.buildingNumber() }`,
-    zoom_url: faker.internet.url(),
+    meeting_url: faker.internet.url(),
   };
 }
 

@@ -1,13 +1,14 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { Layout } from "../components/layout"
 import { Details } from "../components/details"
+import { Link } from "../components/link"
 
 const Block = (block) => {
   return (
     <div>
       <h2>Block: { block.name }</h2>
-      
+     
       <p>
         { block.dates.join(', ') }
       </p>
@@ -18,7 +19,7 @@ const Block = (block) => {
             <li key={ `class-${ index }` }>
               <Link to={ c.course.path }>{ c.course.title }</Link>
               &nbsp;
-              (<Link to={ c.instructor.path }>{ c.instructor.fullName }</Link>)
+              (<Link to={ c.instructor.path }>{ c.instructor.full_name }</Link>)
             </li>
           ))
         }
@@ -36,6 +37,8 @@ function ScheduleTemplate({ data }) {
       <h1>{ schedule.name }</h1>
       
       <p>Location: { schedule.location }</p>
+
+      <Link to={ schedule.registration_url }>Register</Link>
 
       {
         schedule.blocks.map((block, index) => (
@@ -55,6 +58,7 @@ export const pageQuery = graphql`
     schedule: schedulesYaml(slug: { eq: $slug }) {
       name
       location
+      registration_url
       blocks {
         name
         dates
@@ -64,7 +68,7 @@ export const pageQuery = graphql`
             path
           }
           instructor {
-            fullName
+            full_name
             path
           }
         }

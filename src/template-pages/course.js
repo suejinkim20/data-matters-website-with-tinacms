@@ -1,6 +1,8 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { Layout } from "../components/layout"
+import { Link } from "../components/link"
+import { Markdown } from "../components/markdown"
 import { Details } from "../components/details"
 
 function CourseTemplate({ data }) {
@@ -25,8 +27,12 @@ function CourseTemplate({ data }) {
   return (
     <Layout>
       <h1>{ course.title }</h1>
-      <p>description: { course.description }</p>
-      <p>prerequisites: { course.prereqs }</p>
+
+      <h2>description</h2>
+      <Markdown>{ course.description }</Markdown>
+      
+      <h2>prerequisites</h2>
+      <Markdown>{ course.prereqs }</Markdown>
 
       <h2>upcoming course offerings</h2>
       <ul>

@@ -14,7 +14,7 @@ const InstructorsPage = ({ data }) => {
       {
         instructors.map(instructor => (
           <div id={ instructor.slug } key={ instructor.id }>
-            <h2 style={{ margin: 0 }}>{ instructor.fullName }</h2>
+            <h2 style={{ margin: 0 }}>{ instructor.full_name }</h2>
             <div>({ instructor.affiliation })</div>
             <p>{ instructor.bio }</p>
           </div>
@@ -40,7 +40,7 @@ export const query = graphql`{
     nodes {
       id
       slug
-      fullName
+      full_name
       bio
       affiliation
     }

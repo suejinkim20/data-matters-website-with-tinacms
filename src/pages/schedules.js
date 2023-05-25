@@ -1,8 +1,9 @@
 import * as React from "react"
 import { Layout } from "../components/layout"
 import Seo from "../components/seo"
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import { Details } from "../components/details"
+import { Link } from "../components/link"
 
 const SchedulesPage = ({ data }) => {
   const schedules = data.schedules.nodes

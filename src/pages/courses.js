@@ -1,11 +1,12 @@
 import * as React from "react"
 import { Layout } from "../components/layout"
 import Seo from "../components/seo"
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import { Details } from "../components/details"
+import { Link } from "../components/link"
 
 const CoursesPage = ({ data }) => {
-  const courses = data.courses.nodes
+  const courses = data.courses.nodes.sort((c, d) => c.title < d.title ? -1 : 1)
 
   return (
     <Layout>

@@ -1,7 +1,8 @@
 import React from "react"
-import { graphql, Link } from 'gatsby'
-import { Layout } from "../components/layout"
+import { graphql } from 'gatsby'
 import Seo from "../components/seo"
+import { Layout } from "../components/layout"
+import { Link } from "../components/link"
 import { Details } from "../components/details"
 
 const HomePage = ({ data }) => {
