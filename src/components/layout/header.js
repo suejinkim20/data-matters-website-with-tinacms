@@ -13,7 +13,7 @@ const Header = ({ siteTitle }) => (
     <Link to="/">{ siteTitle }</Link>
     <Link to="/courses">Course Catalog</Link>
     <Link to="/instructors">Instructors</Link>
-    <Link to="/offerings">Offerings</Link>
+    <Link to="/schedules">Schedules</Link>
   </header>
 )
 

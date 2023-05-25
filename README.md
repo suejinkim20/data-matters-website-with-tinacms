@@ -2,15 +2,16 @@
 
 ## 🚧 local development
 
-- start dev server with real content as data source: `npm run start`
+- start development server with real content as data source: `npm run start`.
 
 ### test data
 
 some test data exists in `src/test/content`, and it is tracked along with the code.
 it should be upgraded as the ui demands.
 
-- generate new test content: `npm run generate`
-- start dev server with test content as data source: `npm run start!`
+- generate new test content: `npm run generate`.
+  + pass `--- verbose` flag to dump the generated content to the console.
+- start development server with test content as data source: `npm run start!`.
 
 # data massaging & the build process
 
@@ -54,4 +55,5 @@ notice the object has its fieldname in camelCase, as well as a couple additional
     + new fields: path, startDate
 
 additional fields whose values can be derived from the existing content fields should be added at this step.
-that is, perform data massage at this step, during the build, in `gatsby-node.js`, not in the client, with React.
+that is to say, most data massaging--especially computationally complex and reused derivations--should be done at this step, during the build, in `gatsby-node.js`, not in the client, with React.
+

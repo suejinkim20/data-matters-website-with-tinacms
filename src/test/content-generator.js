@@ -2,17 +2,24 @@ const fs = require('fs');
 const path = require('path');
 const { faker } = require('@faker-js/faker');
 const YAML = require('yaml');
-const { emptyDirectory, formatDate, slugify } = require('./util')
+const { emptyDirectory, formatDate, slugify } = require('./util');
 
 // setting OVERWRITE to `true` will overwrite existing test data
-const OVERWRITE = true;
-const DEBUG_MODE = true;
+let OVERWRITE = true;
+let VERBOSE_MODE = false;
+
+// check incoming CLI arguments
+if (process.argv.indexOf('verbose') > -1) {
+  VERBOSE_MODE = true;
+}
 
 // paths of interest
-const testContentPath = path.join('./src', 'test', 'content')
-const coursesFilePath = path.join(testContentPath, 'courses.yaml')
-const instructorsFilePath = path.join(testContentPath, 'instructors.yaml')
-const schedulesDirPath = path.join(testContentPath, 'schedules')
+// all test content resides in this directory.
+const testContentPath = path.join('./src', 'test', 'content');
+// specific content locations
+const instructorsFilePath = path.join(testContentPath, 'instructors.yaml');
+const coursesDirPath = path.join(testContentPath, 'courses');
+const schedulesDirPath = path.join(testContentPath, 'schedules');
 
 //
 
@@ -114,28 +121,38 @@ const pastDates = [
   ...[...Array(4).keys()].map(_ => faker.date.past({ years: 2 })),
 ]
 // finally, we generate schedules with our dates.
-const schedules = [
-  ...futureDates.map(date => generateSchedule(date)),
-  ...pastDates.map(date => generateSchedule(date)),
-]
+const schedules = [...futureDates, ...pastDates]
+  .map(date => generateSchedule(date))
 
-console.log(JSON.stringify(schedules, null, 2))
-// console.log(schedules)
-
-DEBUG_MODE && console.log(
+VERBOSE_MODE && console.log('VERBOSE_MODE=true\n',
   JSON.stringify({
     instructors,
     courses,
     schedules,
   }, null, 2)
 );
+console.log(`
+ | successfully wrote to ${ testContentPath }:
+ |   - ${ instructors.length } instructors
+ |   - ${ courses.length } courses
+ |   - ${ schedules.length } schedules
+`)
 
 if (OVERWRITE) {
+  // let's ensure all the content locations exist before proceeding.
+  [coursesDirPath, schedulesDirPath].forEach(path => {
+    if (!fs.existsSync(path)) {
+      fs.mkdirSync(path, { recursive: true });
+    }  
+  })
   // cleanout
   emptyDirectory(testContentPath);
   // write new content
-  fs.writeFileSync(coursesFilePath, YAML.stringify(courses, null, 2));
   fs.writeFileSync(instructorsFilePath, YAML.stringify(instructors, null, 2));
+  courses.forEach(course => {
+    courseFilePath = path.join(coursesDirPath, `${ course.slug }.yaml`);
+    fs.writeFileSync(courseFilePath, YAML.stringify(course, null, 2));
+  })
   schedules.forEach(schedule => {
     scheduleFilePath = path.join(schedulesDirPath, `${ schedule.slug }.yaml`);
     fs.writeFileSync(scheduleFilePath, YAML.stringify(schedule, null, 2));

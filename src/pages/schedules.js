@@ -2,16 +2,22 @@ import * as React from "react"
 import { Layout } from "../components/layout"
 import Seo from "../components/seo"
 import { graphql, Link } from 'gatsby'
+import { Details } from "../components/details"
 
 const SchedulesPage = ({ data }) => {
   const schedules = data.schedules.nodes
+  const today = new Date()
+  const upcomingSchedules = schedules
+    // select only the schedules starting in the future.
+    .filter(schedule => today < new Date(schedule.startDate))
+    .sort(schedule => schedule.startDate)
 
   return (
     <Layout>
       <h1>schedules</h1>
       <ul>
         {
-          schedules.map(schedule => (
+          upcomingSchedules.map(schedule => (
             <li key={ schedule.id }>
               <Link to={ schedule.path }>{ schedule.name }</Link>
             </li>
@@ -19,10 +25,7 @@ const SchedulesPage = ({ data }) => {
         }
       </ul>
       
-      <details>
-        <summary>json</summary>
-        <pre>{ JSON.stringify(data, null, 2) }</pre>
-      </details>
+      <Details title="data" data={ data } />
     </Layout>
   )
 }
@@ -42,6 +45,7 @@ export const query = graphql`{
       id
       name
       path
+      startDate
     }
   }
 }`

@@ -1,11 +1,26 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
 import { Layout } from "../components/layout"
+import { Details } from "../components/details"
 
-function CourseTemplate({ data: {
-  course,
-  offerings: { nodes: offerings }
-} }) {
+function CourseTemplate({ data }) {
+  const { course, schedules } = data
+  const today = new Date()
+  const scheduleBuckets = schedules.nodes
+    .reduce((buckets, schedule) => {
+      if (new Date(schedule.startDate) < today) {
+        return {
+          ...buckets,
+          past: [...buckets.past, schedule]
+            .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
+        }
+      }
+      return {
+        ...buckets,
+        future: [...buckets.future, schedule]
+          .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
+      }
+    }, { past: [], future: [] })
 
   return (
     <Layout>
@@ -13,10 +28,10 @@ function CourseTemplate({ data: {
       <p>description: { course.description }</p>
       <p>prerequisites: { course.prereqs }</p>
 
-      <h2>offerings</h2>
+      <h2>upcoming course offerings</h2>
       <ul>
         {
-          offerings.map(({ name, path }) => (
+          scheduleBuckets.future.map(({ name, path }) => (
             <li key={ `course-${ course.title }--${ name }` }>
               <Link to={ path }>{ name }</Link>
             </li>
@@ -24,10 +39,18 @@ function CourseTemplate({ data: {
         }
       </ul>
       
-      <details>
-        <summary>json</summary>
-        <pre>{ JSON.stringify(course, null, 2) }</pre>
-      </details>
+      <h2>past course offerings</h2>
+      <ul>
+        {
+          scheduleBuckets.past.reverse().map(({ name, path }) => (
+            <li key={ `course-${ course.title }--${ name }` }>
+              <Link to={ path }>{ name }</Link>
+            </li>
+          ))
+        }
+      </ul>
+      
+      <Details title="data" data={ data } />
     </Layout>
   )
 }
@@ -44,7 +67,7 @@ export const pageQuery = graphql`
       description
       prereqs
     }
-      offerings: allSchedulesYaml(filter: {
+      schedules: allSchedulesYaml(filter: {
         blocks: { elemMatch: {
           classes: { elemMatch: {
             course: { slug: { eq: $slug } }
@@ -54,6 +77,7 @@ export const pageQuery = graphql`
         nodes {
           name
           path
+          startDate
         }
       }
   }

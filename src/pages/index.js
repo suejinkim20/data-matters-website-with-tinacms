@@ -1,20 +1,20 @@
 import React from "react"
+import { graphql, Link } from 'gatsby'
 import { Layout } from "../components/layout"
 import Seo from "../components/seo"
-import { graphql, Link } from 'gatsby'
+import { Details } from "../components/details"
 
 const HomePage = ({ data }) => {
   const schedules = data.schedules.nodes
   const today = new Date()
-  // 
+  // select only the schedules starting in the near future,
   const upcomingSchedules = schedules
-    // select only the schedules starting in the near future,
     // say, between now and 90 days from now.
     .filter(schedule => {
       const dateOffset = new Date(schedule.startDate) - today
       return 0 < dateOffset && dateOffset < 90 * (24 * 60 * 60 * 1000)
     })
-    .sort(schedule => schedule.startDate)
+    .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
 
   return (
     <Layout>
@@ -27,7 +27,7 @@ const HomePage = ({ data }) => {
         Lorem ipsum aliquip incididunt enim irure excepteur pariatur ea commodo et id nulla officia tempor ad nulla pariatur dolor aliquip.
       </p>
 
-      <h2>upcoming offerings</h2>
+      <h2>upcoming schedules</h2>
 
       <p>there's still time to enroll Consequat ea proident fugiat pariatur magna id sit deserunt amet in aute occaecat amet ut.</p>
 
@@ -39,7 +39,7 @@ const HomePage = ({ data }) => {
           </p>
         ))
       }
-      <Link to="/offerings">view all offerings</Link>
+      <Link to="/schedules">view all schedules</Link>
 
 
       <h2>another section</h2>
@@ -52,10 +52,7 @@ const HomePage = ({ data }) => {
         Sint eu voluptate in ullamco ea anim cupidatat magna fugiat aliquip ut duis esse elit consectetur reprehenderit nostrud.
       </p>
 
-      <details>
-        <summary>json</summary>
-        <pre>{ JSON.stringify(data, null, 2) }</pre>
-      </details>
+      <Details title="data" data={ data } />
     </Layout>
   )
 }

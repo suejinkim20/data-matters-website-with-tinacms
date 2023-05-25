@@ -31,7 +31,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `/offerings/${ source.slug }`
+          return `/schedules/${ source.slug }`
         },
       }
     },
@@ -91,42 +91,43 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs)
 }
 
-exports.createResolvers = ({ createResolvers }) => {
-  const resolvers = {
-    InstructorsYaml: {
-      classes: {
-        type: ["CoursesYaml"],
-        resolve: async (source, args, context, info) => {
-          const { entries } = await context.nodeModel.findAll({
-            query: {
-              filter: {
-                blocks: {
-                  classes: {
-                    instructor: {
-                      slug: {
-                        eq: source.instructor,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            type: "SchedulesYaml",
-          })
-          return entries
-        },
-      },
-    },
-  }
-  createResolvers(resolvers)
-}
+// TODO: fix this resolver
+// exports.createResolvers = ({ createResolvers }) => {
+//   const resolvers = {
+//     InstructorsYaml: {
+//       classes: {
+//         type: ["CoursesYaml"],
+//         resolve: async (source, args, context, info) => {
+//           const { entries } = await context.nodeModel.findAll({
+//             query: {
+//               filter: {
+//                 blocks: {
+//                   classes: {
+//                     instructor: {
+//                       slug: {
+//                         eq: source.instructor,
+//                       },
+//                     },
+//                   },
+//                 },
+//               },
+//             },
+//             type: "SchedulesYaml",
+//           })
+//           return entries
+//         },
+//       },
+//     },
+//   }
+//   createResolvers(resolvers)
+// }
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   // page templates
   const courseTemplate = path.resolve(`src/templates/course.js`)
-  const scheduleTemplate = path.resolve(`src/templates/offering.js`)
+  const scheduleTemplate = path.resolve(`src/templates/schedule.js`)
 
   // query content nodes necessary for page-creation.
   return graphql(`

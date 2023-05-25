@@ -1,6 +1,7 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
 import { Layout } from "../components/layout"
+import { Details } from "../components/details"
 
 const Block = (block) => {
   return (
@@ -26,10 +27,12 @@ const Block = (block) => {
   )
 }
 
-function ScheduleTemplate({ data: { schedule } }) {
+function ScheduleTemplate({ data }) {
+  const { schedule } = data
+
   return (
     <Layout>
-      <Link to="/offerings">back to all schedules</Link>
+      <Link to="/schedules">back to all schedules</Link>
       <h1>{ schedule.name }</h1>
       
       <p>Location: { schedule.location }</p>
@@ -40,10 +43,7 @@ function ScheduleTemplate({ data: { schedule } }) {
         ))
       }
 
-      <details>
-        <summary>json</summary>
-        <pre>{ JSON.stringify(schedule, null, 2) }</pre>
-      </details>
+      <Details title="data" data={ data } />
     </Layout>
   )
 }
