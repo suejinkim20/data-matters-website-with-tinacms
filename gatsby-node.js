@@ -126,8 +126,8 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   // page templates
-  const courseTemplate = path.resolve(`src/templates/course.js`)
-  const scheduleTemplate = path.resolve(`src/templates/schedule.js`)
+  const courseTemplate = path.resolve(`src/template-pages/course.js`)
+  const scheduleTemplate = path.resolve(`src/template-pages/schedule.js`)
 
   // query content nodes necessary for page-creation.
   return graphql(`

@@ -2,6 +2,7 @@ import * as React from "react"
 import { Layout } from "../components/layout"
 import Seo from "../components/seo"
 import { graphql, Link } from 'gatsby'
+import { Details } from "../components/details"
 
 const CoursesPage = ({ data }) => {
   const courses = data.courses.nodes
@@ -19,10 +20,7 @@ const CoursesPage = ({ data }) => {
         }
       </ul>
 
-      <details>
-        <summary>json</summary>
-        <pre>{ JSON.stringify(data, null, 2) }</pre>
-      </details>
+      <Details title="data" data={ data } />
     </Layout>
   )
 }
