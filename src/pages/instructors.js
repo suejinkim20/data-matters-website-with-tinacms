@@ -3,6 +3,7 @@ import { Layout } from "../components/layout"
 import { graphql } from 'gatsby'
 import Seo from "../components/seo"
 import { Details } from "../components/details"
+import { Link } from "../components/link"
 
 const InstructorsPage = ({ data }) => {
   const instructors = data.instructors.nodes
@@ -15,7 +16,9 @@ const InstructorsPage = ({ data }) => {
         instructors.map(instructor => (
           <div id={ instructor.slug } key={ instructor.id }>
             <h2 style={{ margin: 0 }}>{ instructor.full_name }</h2>
-            <div>({ instructor.affiliation })</div>
+            <div>
+              { instructor.affiliation } | <Link to={ instructor.url }>website</Link>
+            </div>
             <p>{ instructor.bio }</p>
           </div>
         ))
@@ -41,6 +44,7 @@ export const query = graphql`{
       id
       slug
       full_name
+      url
       bio
       affiliation
     }

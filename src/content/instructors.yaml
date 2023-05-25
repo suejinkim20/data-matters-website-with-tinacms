@@ -1,6 +1,7 @@
 - slug: alice-aliceton
   first_name: Alice
   last_name: Aliceton
+  url: https://example.com/
   bio: >
     Lorem ipsum proident in eu reprehenderit est nostrud anim nisi ad in sunt excepteur irure aliqua.
     Nostrud reprehenderit nostrud officia sunt eiusmod irure et elit ex ea velit qui laboris.
@@ -10,6 +11,7 @@
 - slug: bob-bobberson
   first_name: Bob
   last_name: Bobberson
+  url: https://example.com/
   bio: >
     Adipisicing ut esse laborum occaecat ea ad ut deserunt sunt consectetur fugiat nostrud veniam aute excepteur quis incididunt excepteur.
     Consequat laboris occaecat enim occaecat elit anim occaecat est mollit qui sit duis.
@@ -18,6 +20,7 @@
 - slug: carla-carlsen
   first_name: Carla
   last_name: Carlsen
+  url: https://example.com/
   bio: >
     Ut exercitation sed laboris enim ad nisi labore aliqua adipisicing nostrud minim ad.
     Minim pariatur aute cillum dolor nulla fugiat in commodo et reprehenderit anim ut deserunt.

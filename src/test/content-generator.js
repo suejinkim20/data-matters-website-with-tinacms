@@ -28,11 +28,13 @@ function generateInstructor() {
   const first_name = faker.person.firstName();
   const last_name = faker.person.lastName();
   const slug = slugify(`${ first_name } ${ last_name }`);
+  const url = faker.internet.url();
 
   return {
     slug,
     first_name,
     last_name,
+    url,
     affiliation: faker.company.name(),
     bio: faker.lorem.paragraph(5),
   };
