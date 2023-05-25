@@ -3,16 +3,7 @@ const path = require('path')
 exports.createSchemaCustomization = ({ actions }) => {
   const { createFieldExtension, createTypes } = actions
 
-  createFieldExtension({
-    name: "full_name",
-    extend(options, prevFieldConfig) {
-      return {
-        resolve(source) {
-          return `${source.first_name} ${source.last_name}`
-        },
-      }
-    },
-  })
+  // create a `path` field on InstructorYaml nodes
   createFieldExtension({
     name: "instructor_path",
     extend(options, prevFieldConfig) {
@@ -23,6 +14,18 @@ exports.createSchemaCustomization = ({ actions }) => {
       }
     },
   })
+  // create a `full_name` field on InstructorYaml nodes.
+  createFieldExtension({
+    name: "full_name",
+    extend(options, prevFieldConfig) {
+      return {
+        resolve(source) {
+          return `${ source.first_name } ${ source.last_name }`
+        },
+      }
+    },
+  })
+  // create a `path` field on ScheduleYaml nodes
   createFieldExtension({
     name: "schedule_path",
     extend(options, prevFieldConfig) {
@@ -33,12 +36,29 @@ exports.createSchemaCustomization = ({ actions }) => {
       }
     },
   })
+  // create a `path` field on CoursesYaml nodes
   createFieldExtension({
     name: "course_path",
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
           return `/courses/${ source.slug }`
+        },
+      }
+    },
+  })
+  // create a `startDate` field on ScheduleYaml nodes,
+  // derived from the first block's dates field.
+  createFieldExtension({
+    name: "schedule_start_date",
+    extend(options, prevFieldConfig) {
+      const today = new Date()
+      return {
+        resolve(source) {
+          const thisBlocksDates = source.blocks
+            .reduce((dates, block) => [...dates, ...block.dates], [])
+            .sort((d, e) => new Date(d) < new Date(e) ? -1 : 1)
+          return thisBlocksDates[0]
         },
       }
     },
@@ -55,14 +75,17 @@ exports.createSchemaCustomization = ({ actions }) => {
     }`,
     `type SchedulesYaml implements Node {
       blocks: [Block!]
-      path: String @schedule_path(type: "schedule")
+      path: String! @schedule_path
+      startDate: String! @schedule_start_date
     }`,
     `type InstructorsYaml implements Node {
+      firstName: String! @proxy(from: "first_name")
+      lastName: String! @proxy(from: "last_name")
       fullName: String @full_name
-      path: String @instructor_path
+      path: String! @instructor_path
     }`,
     `type CoursesYaml implements Node {
-      path: String @course_path
+      path: String! @course_path
     }`,
   ]
   createTypes(typeDefs)
@@ -70,7 +93,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.createResolvers = ({ createResolvers }) => {
   const resolvers = {
-    instructorsYaml: {
+    InstructorsYaml: {
       classes: {
         type: ["CoursesYaml"],
         resolve: async (source, args, context, info) => {

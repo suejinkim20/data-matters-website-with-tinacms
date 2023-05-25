@@ -4,7 +4,6 @@ import Seo from "../components/seo"
 import { graphql } from 'gatsby'
 
 const InstructorsPage = ({ data }) => {
-  const instructors = data.instructors.nodes
 
   return (
     <Layout>

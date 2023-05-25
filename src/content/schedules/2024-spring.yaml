@@ -1,6 +1,7 @@
 name: Spring 2024
 slug: spring-2024
 location: SDSS, Main Building
+registration_url: https://...
 blocks:
 - name: Monday & Tuesday
   dates: ["04/15/2023", "04/16/2023"]

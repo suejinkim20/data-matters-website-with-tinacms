@@ -1,6 +1,7 @@
 name: Fall 2023
 slug: fall-2023
 location: D.H. Hill Library, first floor
+registration_url: https://...
 blocks:
 - name: Monday & Tuesday
   dates: ["08/15/2023", "08/16/2023"]

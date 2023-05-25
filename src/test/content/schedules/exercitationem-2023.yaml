@@ -1,0 +1,79 @@
+name: exercitationem 2023
+slug: exercitationem-2023
+location: 3627 Schoen Lake
+registration_url: https://novel-shakedown.biz
+blocks:
+  - name: aperiam voluptas
+    dates:
+      - 04/15/2023
+      - 04/16/2023
+    classes:
+      - course: dolores-quibusdam-dolorum
+        instructor: sammie-rohan
+        location: Room 38688
+        zoom_url: https://daring-slash.org
+      - course: quibusdam-numquam-accusamus
+        instructor: dayne-moen
+        location: Room 9897
+        zoom_url: https://several-culvert.name/
+      - course: ex-debitis-tenetur
+        instructor: bo-dach
+        location: Room 3739
+        zoom_url: https://vapid-fluke.org/
+      - course: modi-eligendi-dolore
+        instructor: margaretta-reichert
+        location: Room 4445
+        zoom_url: https://well-groomed-owl.com
+      - course: esse-cupiditate-magnam
+        instructor: krystal-greenholt
+        location: Room 118
+        zoom_url: https://warmhearted-bear.net
+  - name: laudantium quas
+    dates:
+      - 04/17/2023
+    classes:
+      - course: ex-debitis-tenetur
+        instructor: bo-dach
+        location: Room 4705
+        zoom_url: https://sparse-net.biz/
+      - course: officia-consectetur-enim
+        instructor: earnest-kertzmann
+        location: Room 81407
+        zoom_url: https://triangular-stability.biz/
+      - course: quibusdam-numquam-accusamus
+        instructor: erna-medhurst
+        location: Room 837
+        zoom_url: https://dear-integer.info/
+      - course: esse-cupiditate-magnam
+        instructor: margaretta-reichert
+        location: Room 59319
+        zoom_url: https://definite-chair.org
+      - course: esse-cupiditate-magnam
+        instructor: sammie-rohan
+        location: Room 66764
+        zoom_url: https://concerned-intelligence.net/
+  - name: sunt cum
+    dates:
+      - 04/18/2023
+      - 04/19/2023
+    classes:
+      - course: modi-eligendi-dolore
+        instructor: krystal-greenholt
+        location: Room 26973
+        zoom_url: https://knowledgeable-frenzy.info
+      - course: sunt-consequuntur-ex
+        instructor: earnest-kertzmann
+        location: Room 1351
+        zoom_url: https://runny-croup.biz
+      - course: ex-debitis-tenetur
+        instructor: dayne-moen
+        location: Room 95625
+        zoom_url: https://rigid-talking.name
+      - course: dolores-quibusdam-dolorum
+        instructor: krystal-greenholt
+        location: Room 406
+        zoom_url: https://pure-hemisphere.org
+      - course: vel-sapiente-molestiae
+        instructor: erna-medhurst
+        location: Room 3069
+        zoom_url: https://this-boon.name

@@ -32,8 +32,8 @@ function emptyDirectory(dirPath) {
 }
 
 function formatDate(dateObject) {
-  const mm = dateObject.getMonth() < 10 ? `0${ dateObject.getMonth() }` : dateObject.getMonth();
-  const dd = dateObject.getDate() < 9 ? `0${ dateObject.getDate() + 1 }` : dateObject.getDate() + 1;
+  const mm = dateObject.getMonth() < 9 ? `0${ dateObject.getMonth() + 1 }` : dateObject.getMonth() + 1;
+  const dd = dateObject.getDate() < 10 ? `0${ dateObject.getDate() }` : dateObject.getDate();
   const yyyy = dateObject.getFullYear();
   return `${ mm }/${ dd }/${ yyyy }`;
 }

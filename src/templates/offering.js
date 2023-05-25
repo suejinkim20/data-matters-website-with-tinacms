@@ -29,6 +29,7 @@ const Block = (block) => {
 function ScheduleTemplate({ data: { schedule } }) {
   return (
     <Layout>
+      <Link to="/offerings">back to all schedules</Link>
       <h1>{ schedule.name }</h1>
       
       <p>Location: { schedule.location }</p>

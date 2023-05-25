@@ -6,7 +6,7 @@ const { emptyDirectory, formatDate, slugify } = require('./util')
 
 // setting OVERWRITE to `true` will overwrite existing test data
 const OVERWRITE = true;
-const LOG_GENERATED_CONTENT = true;
+const DEBUG_MODE = true;
 
 // paths of interest
 const testContentPath = path.join('./src', 'test', 'content')
@@ -61,30 +61,32 @@ function generateSchedule(startDate) {
   const dates = [...Array(5).keys()].map(i => {
     let _date = new Date(startDate);
     _date.setDate(_date.getDate() + i);
-    return _date
+    return formatDate(_date)
   })
 
   return {
     name: name,
     slug: slug,
     location: faker.location.streetAddress(),
+    registration_url: faker.internet.url(),
     // this implementation is restricted to the usual
     // two-day, one-day, two-day, consecutive block structure.
-    // it will take a bit of effort to mix up the block schedules.
+    // it will take a bit of effort to mix up the block schedules
+    // if that ever becomes necessary.
     blocks: [
       {
         name: faker.lorem.words(2),
-        dates: [formatDate(dates[0]), formatDate(dates[1])],
+        dates: [dates[0], dates[1]],
         classes: faker.helpers.multiple(generateClass, { count: 5 }),
       },
       {
         name: faker.lorem.words(2),
-        dates: [formatDate(dates[2])],
+        dates: [dates[2]],
         classes: faker.helpers.multiple(generateClass, { count: 5 }),
       },
       {
         name: faker.lorem.words(2),
-        dates: [formatDate(dates[3]), formatDate(dates[4])],
+        dates: [dates[3], dates[4]],
         classes: faker.helpers.multiple(generateClass, { count: 5 }),
       },
     ]
@@ -102,7 +104,7 @@ const futureDates = [
   // we'll want one in the _near_ future...
   faker.date.soon({ days: 60 }),
   // ...and some more a bit farther out.
-  ...[...Array(2).keys()].map(_ => faker.date.future({ years: 1 })),
+  ...[...Array(2).keys()].map(_ => faker.date.future({ years: 2 })),
 ]
 // we'll do the analogous thing for past dates:
 const pastDates = [
@@ -111,7 +113,7 @@ const pastDates = [
   // ...and a few more father back.
   ...[...Array(4).keys()].map(_ => faker.date.past({ years: 2 })),
 ]
-// finally, we generate schedules with our predetermined dates.
+// finally, we generate schedules with our dates.
 const schedules = [
   ...futureDates.map(date => generateSchedule(date)),
   ...pastDates.map(date => generateSchedule(date)),
@@ -120,7 +122,7 @@ const schedules = [
 console.log(JSON.stringify(schedules, null, 2))
 // console.log(schedules)
 
-LOG_GENERATED_CONTENT && console.log(
+DEBUG_MODE && console.log(
   JSON.stringify({
     instructors,
     courses,
