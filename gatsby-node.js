@@ -47,7 +47,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       }
     },
   })
-  // create a `startDate` field on ScheduleYaml nodes,
+  // create a `start_date` field on ScheduleYaml nodes,
   // derived from the first block's dates field.
   createFieldExtension({
     name: "schedule_start_date",
@@ -76,7 +76,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     `type SchedulesYaml implements Node {
       blocks: [Block!]
       path: String! @schedule_path
-      startDate: String! @schedule_start_date
+      start_date: String! @schedule_start_date
     }`,
     `type InstructorsYaml implements Node {
       firstName: String! @proxy(from: "first_name")

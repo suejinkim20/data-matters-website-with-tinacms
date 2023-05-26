@@ -64,11 +64,11 @@ function generateClass() {
 }
 
 // schedules
-function generateSchedule(startDate) {
-  const name = `${ faker.lorem.word() } ${ startDate.getFullYear() }`;
+function generateSchedule(start_date) {
+  const name = `${ faker.lorem.word() } ${ start_date.getFullYear() }`;
   const slug = faker.helpers.slugify(name);
   const dates = [...Array(5).keys()].map(i => {
-    let _date = new Date(startDate);
+    let _date = new Date(start_date);
     _date.setDate(_date.getDate() + i);
     return formatDate(_date)
   })

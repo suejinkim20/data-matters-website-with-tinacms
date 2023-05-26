@@ -12,10 +12,10 @@ const HomePage = ({ data }) => {
   const upcomingSchedules = schedules
     // say, between now and 90 days from now.
     .filter(schedule => {
-      const dateOffset = new Date(schedule.startDate) - today
+      const dateOffset = new Date(schedule.start_date) - today
       return 0 < dateOffset && dateOffset < 90 * (24 * 60 * 60 * 1000)
     })
-    .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
+    .sort((s, t) => new Date(s.start_date) - new Date(t.start_date))
 
   return (
     <Layout>
@@ -35,7 +35,7 @@ const HomePage = ({ data }) => {
       {
         upcomingSchedules.map(schedule => (
           <p key={ schedule.id }>
-            <strong>{ schedule.name }</strong> ({ schedule.startDate })<br />
+            <strong>{ schedule.name }</strong> ({ schedule.start_date })<br />
             <Link to={ schedule.path }>Details</Link> | <Link to={ schedule.registration_url }>Register</Link>
           </p>
         ))
@@ -73,7 +73,7 @@ export const query = graphql`{
       id
       name
       path
-      startDate
+      start_date
       registration_url
       blocks {
         dates

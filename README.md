@@ -1,23 +1,28 @@
-# data matters website
+# Data Matters Website
 
-## getting started
+## Getting Started
 
-## 🚧 local development
+With Node 18 installed on your system, clone this repo and install dependencies with `npm i`.
 
-- start development server with real content as data source: `npm run start`.
+## 🚧 Local development
 
-### test data
+Start development server with `npm run start`.
 
-some test data exists in `src/test/content`, and it is tracked along with the code.
-it should be upgraded as the ui demands.
+### Test Data
 
-- generate new test content: `npm run generate`.
-  + pass `--- verbose` flag to dump the generated content to the console.
-- start development server with test content as data source: `npm run start!`.
+There is a script to generate test content data, which will be dumped into the `src/test/content` directory.
 
-> note: test content is not tracked by version control, as the content generator should be sufficient for every developer to generate comparable content that meets the requirements of the UI.
+To generate new test content, run `npm run generate`.
+Pass the `--- verbose` flag to dump the generated content to the console for visual inspection.
 
-> note: all scripts (as in, `npm run [script]`) that interface with content have test-content-focused counterparts that have the same command with a `!` appended. For example, to build a production bundle of the site with real content, run `npm run build`; to build the site with _test_ content, run `npm run build!`.
+> Note: Test content is not tracked by version control, as the content generator should be sufficient for every developer to generate comparable content that meets the requirements of the UI.
+
+To start development server with test content as data source, run `npm run start!`.
+This is the same a the above run command, but with a `!` appended.
+
+> Note: The `start`, `test`, and `build` scripts all interface with content and have test-content-focused counterparts,
+> which have the same command with an appended `!`. For example, to build a production bundle of the site with real
+> content, run `npm run build`; to build the site with _test_ content, run `npm run build!`.
 
 ## Content Management
 
@@ -46,7 +51,7 @@ See types for these fields below; a "!" indicates a field is required.
   - registration_url String
   - blocks:
     * name: String!
-      dates [Datestring (MM/DD/YYYY format)]!
+      dates [DateString (MM/DD/YYYY format)]!
       classes [Class]
 
 where `Class` has this structure:
@@ -57,19 +62,20 @@ where `Class` has this structure:
   + location: String
   + meeting_url: String
 
-### Content & the build process
+### Content & the Build Process
 
-All content starts as YAML. as an example, consider the following YAML file that defines a single instructor.
+All content starts as YAML. As an example, consider the following YAML file that defines a single instructor.
 
 ```
-# instructor YAML - pre-build
-- slug: selena-okon
-  first_name: Selena
-  last_name: O'Kon
-  affiliation: Hartmann, Botsford and Swift
-  bio: Veritatis error nihil. Deleniti rem culpa commodi rerum dolores tenetur
-    tempore. Sit vel ratione labore in minus maxime. Ea eos repellat consequatur
-    dolorem. Illum enim laboriosam nisi facere rem itaque est quo quis.
+# instructor YAML -- pre-build
+
+slug: selena-okon
+first_name: Selena
+last_name: O'Kon
+affiliation: Hartmann, Botsford and Swift
+bio: Veritatis error nihil. Deleniti rem culpa commodi rerum dolores tenetur
+  tempore. Sit vel ratione labore in minus maxime. Ea eos repellat consequatur
+  dolorem. Illum enim laboriosam nisi facere rem itaque est quo quis.
 ```
 
 ```
@@ -80,12 +86,12 @@ YAML ""  --->   | gatsby-node.js |  --->  Object {}  --->   UI
                  ----------------
 ````
 
-Data comes out of the build process (as a result of code residing in `gatsby-node.js`) as JavaScript object for consumption by the UI. some fields are added during this build step. See Gatsby's documentation on [Customizing the GraphQL Schema](https://www.gatsbyjs.com/docs/reference/graphql-data-layer/schema-customization/) for details on how this is done.
+Data comes out of the build process (as a result of code residing in `gatsby-node.js`) as JavaScript object for consumption by the UI. Some fields are added during this build step.
 
 For example, consider again the above instructor YAML, which comes out with the following structure.
 
 ```
-# instructor object - post-build
+# instructor object -- post-build
 
 {
   slug: 'selena-okon',
@@ -106,27 +112,39 @@ Here is a list of all new fields added at build time for each data type:
 - **courses**
     + new fields: path
 - **schdules**
-    + new fields: path, startDate
+    + new fields: path, start_date
 
 Additional fields whose values can be derived from the existing content fields should be added at this step. The goal is to reduce/eliminate redundancy, which help keep a clean code base. The benefit extends beyond the developer experience, though. We also want to minimize the effort required from content managers. To this end, most data massaging--especially computationally complex and reused derivations--should be done at this step, during the build, in `gatsby-node.js`, not in the client, with React.
 
+See Gatsby's documentation on [Customizing the GraphQL Schema](https://www.gatsbyjs.com/docs/reference/graphql-data-layer/schema-customization/) for details on how this is done.
+
 ## Feature Development
 
-ensuring the UI stays predictable is key to it sustainability and success. to help increase the probability of producing a stable application, we'll adhere to a test-driven workflow.
+Ensuring the UI stays predictable is key to its sustainability and success. To help increase the probability of producing a stable application, we'll adhere to a test-driven workflow.
 
 ### Workflow
 
-test content generators should be kept up-to-date with the core code base.
-in fact, it should be the first part of the code that gets touched.
-this workflow should be followed when developing new features that involve data changes.
+The test content generators should be kept up-to-date with the core code base.
+In fact, this should be the first part of the code that gets touched when developing a new feature.
+This workflow should be followed when developing new features that involve data changes.
 
-1. define feature and associated data alterations.
-2. write tests (in `src/test/`) that will validate the desired data structure.
-  + note that this test will fail at this point (with both real and test content) as the content remains untouched.
-3. add functionality to `src/test/content-generator.js` to create content with the desired structure, *i.e.*, when `npm run generate` is executed.
-4. test with newly generated test data (`npm run test!`).
-5. build UI support for restructured test content.
-6. modify real content to desired new structure.
-7. verify / remediate UI.
+1. Define feature and associated data alterations.
+2. Write tests (in `src/test/`) that will validate the desired data structure.
+  + Note: This test will fail at this point (with both real and test content) as the content remains untouched.
+3. Add functionality to `src/test/content-generator.js` to create content with the desired structure, *i.e.*, when `npm run generate` is executed.
+4. Test with newly generated test data (`npm run test!`).
+5. Build UI support for restructured test content.
+6. Modify real content to desired new structure.
+7. Verify / remediate UI.
 
-adhering to this workflow means any developer can spin up a local instance of the application with realistic test data at any time. this provides a consistent way to test new UI features against a suite of edge cases and tests that satisfy the requirements of the UI, including edge cases.
+Adhering to this workflow means any developer can spin up a local instance of the application with realistic test data at any time. This provides a consistent way to test new features against a suite of content that satisfies the requirements of the UI, including edge cases.
+The test suite will mature alongside the code base, helping to enforce structure requirements along the way.
+
+# 🎁 Building for Production
+
+Build a production bundle of this application with `npm run build`.
+The bundle will reside in the `public` directory.
+
+Test the built application with `npm run serve`, which will serve the application at http://localhost:9000/.
+
+Deployment notes TBD.

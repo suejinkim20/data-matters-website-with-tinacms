@@ -10,8 +10,8 @@ const SchedulesPage = ({ data }) => {
   const today = new Date()
   const upcomingSchedules = schedules
     // select only the schedules starting in the future.
-    .filter(schedule => today < new Date(schedule.startDate))
-    .sort(schedule => schedule.startDate)
+    .filter(schedule => today < new Date(schedule.start_date))
+    .sort(schedule => schedule.start_date)
 
   return (
     <Layout>
@@ -46,7 +46,7 @@ export const query = graphql`{
       id
       name
       path
-      startDate
+      start_date
     }
   }
 }`

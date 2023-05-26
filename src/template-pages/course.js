@@ -10,17 +10,17 @@ function CourseTemplate({ data }) {
   const today = new Date()
   const scheduleBuckets = schedules.nodes
     .reduce((buckets, schedule) => {
-      if (new Date(schedule.startDate) < today) {
+      if (new Date(schedule.start_date) < today) {
         return {
           ...buckets,
           past: [...buckets.past, schedule]
-            .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
+            .sort((s, t) => new Date(s.start_date) - new Date(t.start_date))
         }
       }
       return {
         ...buckets,
         future: [...buckets.future, schedule]
-          .sort((s, t) => new Date(s.startDate) - new Date(t.startDate))
+          .sort((s, t) => new Date(s.start_date) - new Date(t.start_date))
       }
     }, { past: [], future: [] })
 
@@ -82,7 +82,7 @@ export const pageQuery = graphql`
         nodes {
           name
           path
-          startDate
+          start_date
         }
       }
   }
