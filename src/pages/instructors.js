@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { Fragment } from "react"
 import { Layout } from "../components/layout"
 import { graphql } from 'gatsby'
 import Seo from "../components/seo"
@@ -17,7 +17,14 @@ const InstructorsPage = ({ data }) => {
           <div id={ instructor.slug } key={ instructor.id }>
             <h2 style={{ margin: 0 }}>{ instructor.full_name }</h2>
             <div>
-              { instructor.affiliation } | <Link to={ instructor.url }>website</Link>
+              { instructor.affiliation }
+              {
+                instructor.url && (
+                  <Fragment>
+                    &nbsp;|&nbsp;<Link to={ instructor.url }>website</Link>
+                  </Fragment>
+                )
+              }
             </div>
             <p>{ instructor.bio }</p>
           </div>

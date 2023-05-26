@@ -83,6 +83,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       lastName: String! @proxy(from: "last_name")
       full_name: String @full_name
       path: String! @instructor_path
+      url: String
     }`,
     `type CoursesYaml implements Node {
       path: String! @course_path

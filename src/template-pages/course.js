@@ -28,13 +28,12 @@ function CourseTemplate({ data }) {
     <Layout>
       <h1>{ course.title }</h1>
 
-      <h2>description</h2>
       <Markdown>{ course.description }</Markdown>
       
-      <h2>prerequisites</h2>
+      <h2>Prerequisites</h2>
       <Markdown>{ course.prereqs }</Markdown>
 
-      <h2>upcoming course offerings</h2>
+      <h2>Upcoming course offerings</h2>
       <ul>
         {
           scheduleBuckets.future.map(({ name, path }) => (
@@ -45,7 +44,7 @@ function CourseTemplate({ data }) {
         }
       </ul>
       
-      <h2>past course offerings</h2>
+      <h2>Past course offerings</h2>
       <ul>
         {
           scheduleBuckets.past.reverse().map(({ name, path }) => (
