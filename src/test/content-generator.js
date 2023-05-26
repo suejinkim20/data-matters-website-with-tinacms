@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { faker } = require('@faker-js/faker');
 const YAML = require('yaml');
-const { emptyDirectory, formatDate, slugify } = require('./util');
+const { emptyDirectory, formatDate, } = require('./util');
 
 // setting OVERWRITE to `true` will overwrite existing test data
 let OVERWRITE = true;
@@ -27,7 +27,7 @@ const schedulesDirPath = path.join(testContentPath, 'schedules');
 function generateInstructor() {
   const first_name = faker.person.firstName();
   const last_name = faker.person.lastName();
-  const slug = slugify(`${ first_name } ${ last_name }`);
+  const slug = faker.helpers.slugify(`${ first_name } ${ last_name }`);
   const url = faker.internet.url();
 
   return {
@@ -43,7 +43,7 @@ function generateInstructor() {
 // courses
 function generateCourse() {
   const title = faker.lorem.words(3);
-  const slug = slugify(title);
+  const slug = faker.helpers.slugify(title);
 
   return {
     slug,
@@ -66,7 +66,7 @@ function generateClass() {
 // schedules
 function generateSchedule(startDate) {
   const name = `${ faker.lorem.word() } ${ startDate.getFullYear() }`;
-  const slug = slugify(name);
+  const slug = faker.helpers.slugify(name);
   const dates = [...Array(5).keys()].map(i => {
     let _date = new Date(startDate);
     _date.setDate(_date.getDate() + i);

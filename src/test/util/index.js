@@ -1,15 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-function slugify(str) {
-    return str
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-  }
-
 function emptyDirectory(dirPath) {
   const dirContents = fs.readdirSync(dirPath);
 
@@ -46,5 +37,4 @@ module.exports = {
   emptyDirectory,
   formatDate,
   hasDistinctElements,
-  slugify,
 };
