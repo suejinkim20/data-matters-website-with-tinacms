@@ -24,6 +24,18 @@ This is the same a the above run command, but with a `!` appended.
 > which have the same command with an appended `!`. For example, to build a production bundle of the site with real
 > content, run `npm run build`; to build the site with _test_ content, run `npm run build!`.
 
+### Prettier
+
+Prettier is installed as a development dependency, and it's configured to run on new commits.
+You can expect to see output like the following when new commits are made:
+
+```
+$ git commit -m "add feature x"
+🔍  Finding changed files since git revision 4a46f9a.
+🎯  Found 0 changed files.
+✅  Everything is awesome!
+```
+
 ## Content Management
 
 All content lives in the `src/content` directory in YAML files.
