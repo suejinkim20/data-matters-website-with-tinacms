@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { Layout } from '../components/layout'
+import React, { Fragment } from 'react'
 import Seo from '../components/seo'
 import { graphql } from 'gatsby'
 import { Details } from '../components/details'
@@ -11,7 +10,7 @@ const CoursesPage = ({ data }) => {
   )
 
   return (
-    <Layout>
+    <Fragment>
       <h1>course catalog</h1>
       <ul>
         {courses.map(course => (
@@ -22,7 +21,7 @@ const CoursesPage = ({ data }) => {
       </ul>
 
       <Details title="data" data={data} />
-    </Layout>
+    </Fragment>
   )
 }
 

@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { graphql } from 'gatsby'
 import Seo from '../components/seo'
-import { Layout } from '../components/layout'
 import { Link } from '../components/link'
 import { Details } from '../components/details'
 
@@ -18,7 +17,7 @@ const HomePage = ({ data }) => {
     .sort((s, t) => new Date(s.start_date) - new Date(t.start_date))
 
   return (
-    <Layout>
+    <Fragment>
       <h1>home</h1>
 
       <h2>a section</h2>
@@ -60,7 +59,7 @@ const HomePage = ({ data }) => {
       </p>
 
       <Details title="data" data={data} />
-    </Layout>
+    </Fragment>
   )
 }
 

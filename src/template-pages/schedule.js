@@ -1,6 +1,5 @@
-import * as React from 'react'
+import React, { Fragment } from 'react'
 import { graphql } from 'gatsby'
-import { Layout } from '../components/layout'
 import { Details } from '../components/details'
 import { Link } from '../components/link'
 
@@ -28,7 +27,7 @@ function ScheduleTemplate({ data }) {
   const { schedule } = data
 
   return (
-    <Layout>
+    <Fragment>
       <Link to="/schedules">back to all schedules</Link>
       <h1>{schedule.name}</h1>
 
@@ -41,7 +40,7 @@ function ScheduleTemplate({ data }) {
       ))}
 
       <Details title="data" data={data} />
-    </Layout>
+    </Fragment>
   )
 }
 

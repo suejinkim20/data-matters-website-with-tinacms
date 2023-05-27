@@ -1,11 +1,4 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
-
-import * as React from 'react'
+import React, { Fragment } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
@@ -22,7 +15,7 @@ export const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <Fragment>
       <div
         style={{
           minHeight: '100vh',
@@ -36,6 +29,6 @@ export const Layout = ({ children }) => {
         <main style={{ flex: 1 }}>{children}</main>
         <footer>© {new Date().getFullYear()}</footer>
       </div>
-    </>
+    </Fragment>
   )
 }

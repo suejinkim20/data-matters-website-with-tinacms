@@ -1,13 +1,11 @@
-import * as React from 'react'
-
-import { Layout } from '../components/layout'
+import React, { Fragment } from 'react'
 import Seo from '../components/seo'
 
 const NotFoundPage = () => (
-  <Layout>
+  <Fragment>
     <h1>404: Not Found</h1>
     <p>You look lost :(</p>
-  </Layout>
+  </Fragment>
 )
 
 export const Head = () => <Seo title="404: Not Found" />

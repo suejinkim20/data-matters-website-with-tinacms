@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { Layout } from '../components/layout'
+import React, { Fragment } from 'react'
 import Seo from '../components/seo'
 import { graphql } from 'gatsby'
 import { Details } from '../components/details'
@@ -14,7 +13,7 @@ const SchedulesPage = ({ data }) => {
     .sort(schedule => schedule.start_date)
 
   return (
-    <Layout>
+    <Fragment>
       <h1>schedules</h1>
       <ul>
         {upcomingSchedules.map(schedule => (
@@ -25,7 +24,7 @@ const SchedulesPage = ({ data }) => {
       </ul>
 
       <Details title="data" data={data} />
-    </Layout>
+    </Fragment>
   )
 }
 

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { Layout } from '../components/layout'
 import { graphql } from 'gatsby'
 import Seo from '../components/seo'
 import { Details } from '../components/details'
@@ -9,7 +8,7 @@ const InstructorsPage = ({ data }) => {
   const instructors = data.instructors.nodes
 
   return (
-    <Layout>
+    <Fragment>
       <h1>instructors</h1>
 
       {instructors.map(instructor => (
@@ -28,7 +27,7 @@ const InstructorsPage = ({ data }) => {
       ))}
 
       <Details title="data" data={data} />
-    </Layout>
+    </Fragment>
   )
 }
 
