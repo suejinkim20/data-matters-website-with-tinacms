@@ -5,10 +5,10 @@
  * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
  */
 
-import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import * as React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 
-import Header from "./header"
+import Header from './header'
 
 export const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -23,16 +23,18 @@ export const Layout = ({ children }) => {
 
   return (
     <>
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        fontFamily: 'sans-serif',
-      }}>
-        <Header siteTitle={ data.site.siteMetadata?.title || `Title` } />
-        <main style={{ flex: 1 }}>{ children }</main>
-        <footer>© { new Date().getFullYear() }</footer>
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          fontFamily: 'sans-serif',
+        }}
+      >
+        <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+        <main style={{ flex: 1 }}>{children}</main>
+        <footer>© {new Date().getFullYear()}</footer>
       </div>
     </>
   )

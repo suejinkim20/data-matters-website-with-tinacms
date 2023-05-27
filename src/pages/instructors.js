@@ -1,9 +1,9 @@
-import React, { Fragment } from "react"
-import { Layout } from "../components/layout"
+import React, { Fragment } from 'react'
+import { Layout } from '../components/layout'
 import { graphql } from 'gatsby'
-import Seo from "../components/seo"
-import { Details } from "../components/details"
-import { Link } from "../components/link"
+import Seo from '../components/seo'
+import { Details } from '../components/details'
+import { Link } from '../components/link'
 
 const InstructorsPage = ({ data }) => {
   const instructors = data.instructors.nodes
@@ -12,26 +12,22 @@ const InstructorsPage = ({ data }) => {
     <Layout>
       <h1>instructors</h1>
 
-      {
-        instructors.map(instructor => (
-          <div id={ instructor.slug } key={ instructor.id }>
-            <h2 style={{ margin: 0 }}>{ instructor.full_name }</h2>
-            <div>
-              { instructor.affiliation }
-              {
-                instructor.url && (
-                  <Fragment>
-                    &nbsp;|&nbsp;<Link to={ instructor.url }>website</Link>
-                  </Fragment>
-                )
-              }
-            </div>
-            <p>{ instructor.bio }</p>
+      {instructors.map(instructor => (
+        <div id={instructor.slug} key={instructor.id}>
+          <h2 style={{ margin: 0 }}>{instructor.full_name}</h2>
+          <div>
+            {instructor.affiliation}
+            {instructor.url && (
+              <Fragment>
+                &nbsp;|&nbsp;<Link to={instructor.url}>website</Link>
+              </Fragment>
+            )}
           </div>
-        ))
-      }
+          <p>{instructor.bio}</p>
+        </div>
+      ))}
 
-      <Details title="data" data={ data } />
+      <Details title="data" data={data} />
     </Layout>
   )
 }
@@ -45,15 +41,17 @@ export const Head = () => <Seo title="Instructors" />
 
 export default InstructorsPage
 
-export const query = graphql`{
-  instructors: allInstructorsYaml {
-    nodes {
-      id
-      slug
-      full_name
-      url
-      bio
-      affiliation
+export const query = graphql`
+  {
+    instructors: allInstructorsYaml {
+      nodes {
+        id
+        slug
+        full_name
+        url
+        bio
+        affiliation
+      }
     }
   }
-}`
+`

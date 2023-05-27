@@ -1,9 +1,9 @@
-import * as React from "react"
-import { Layout } from "../components/layout"
-import Seo from "../components/seo"
+import * as React from 'react'
+import { Layout } from '../components/layout'
+import Seo from '../components/seo'
 import { graphql } from 'gatsby'
-import { Details } from "../components/details"
-import { Link } from "../components/link"
+import { Details } from '../components/details'
+import { Link } from '../components/link'
 
 const SchedulesPage = ({ data }) => {
   const schedules = data.schedules.nodes
@@ -17,16 +17,14 @@ const SchedulesPage = ({ data }) => {
     <Layout>
       <h1>schedules</h1>
       <ul>
-        {
-          upcomingSchedules.map(schedule => (
-            <li key={ schedule.id }>
-              <Link to={ schedule.path }>{ schedule.name }</Link>
-            </li>
-          ))
-        }
+        {upcomingSchedules.map(schedule => (
+          <li key={schedule.id}>
+            <Link to={schedule.path}>{schedule.name}</Link>
+          </li>
+        ))}
       </ul>
-      
-      <Details title="data" data={ data } />
+
+      <Details title="data" data={data} />
     </Layout>
   )
 }
@@ -40,13 +38,15 @@ export const Head = () => <Seo title="Schedules" />
 
 export default SchedulesPage
 
-export const query = graphql`{
-  schedules: allSchedulesYaml {
-    nodes {
-      id
-      name
-      path
-      start_date
+export const query = graphql`
+  {
+    schedules: allSchedulesYaml {
+      nodes {
+        id
+        name
+        path
+        start_date
+      }
     }
   }
-}`
+`

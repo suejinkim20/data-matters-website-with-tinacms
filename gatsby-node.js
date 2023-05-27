@@ -5,44 +5,44 @@ exports.createSchemaCustomization = ({ actions }) => {
 
   // create a `path` field on InstructorYaml nodes
   createFieldExtension({
-    name: "instructor_path",
+    name: 'instructor_path',
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `/instructors#${ source.slug }`
+          return `/instructors#${source.slug}`
         },
       }
     },
   })
   // create a `full_name` field on InstructorYaml nodes.
   createFieldExtension({
-    name: "full_name",
+    name: 'full_name',
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `${ source.first_name } ${ source.last_name }`
+          return `${source.first_name} ${source.last_name}`
         },
       }
     },
   })
   // create a `path` field on ScheduleYaml nodes
   createFieldExtension({
-    name: "schedule_path",
+    name: 'schedule_path',
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `/schedules/${ source.slug }`
+          return `/schedules/${source.slug}`
         },
       }
     },
   })
   // create a `path` field on CoursesYaml nodes
   createFieldExtension({
-    name: "course_path",
+    name: 'course_path',
     extend(options, prevFieldConfig) {
       return {
         resolve(source) {
-          return `/courses/${ source.slug }`
+          return `/courses/${source.slug}`
         },
       }
     },
@@ -50,14 +50,14 @@ exports.createSchemaCustomization = ({ actions }) => {
   // create a `start_date` field on ScheduleYaml nodes,
   // derived from the first block's dates field.
   createFieldExtension({
-    name: "schedule_start_date",
+    name: 'schedule_start_date',
     extend(options, prevFieldConfig) {
       const today = new Date()
       return {
         resolve(source) {
           const thisBlocksDates = source.blocks
             .reduce((dates, block) => [...dates, ...block.dates], [])
-            .sort((d, e) => new Date(d) < new Date(e) ? -1 : 1)
+            .sort((d, e) => (new Date(d) < new Date(e) ? -1 : 1))
           return thisBlocksDates[0]
         },
       }
@@ -131,21 +131,25 @@ exports.createPages = ({ graphql, actions }) => {
   const scheduleTemplate = path.resolve(`src/template-pages/schedule.js`)
 
   // query content nodes necessary for page-creation.
-  return graphql(`
-    query ($limit: Int!) {
-      courses: allCoursesYaml(limit: $limit) {
-        nodes {
-          path
-          slug
+  return graphql(
+    `
+      query ($limit: Int!) {
+        courses: allCoursesYaml(limit: $limit) {
+          nodes {
+            path
+            slug
+          }
+        }
+        schedules: allSchedulesYaml(limit: $limit) {
+          nodes {
+            path
+            slug
+          }
         }
       }
-      schedules: allSchedulesYaml(limit: $limit) {
-        nodes {
-          path
-          slug
-        }
-      }
-    }`, { limit: 25 }) // note: use second function parameter to pass in query variables.
+    `,
+    { limit: 25 }
+  ) // note: use second function parameter to pass in query variables.
     .then(result => {
       if (result.errors) {
         throw result.errors

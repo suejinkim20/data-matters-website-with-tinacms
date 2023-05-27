@@ -1,34 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const { faker } = require('@faker-js/faker');
-const YAML = require('yaml');
-const { emptyDirectory, formatDate, } = require('./util');
+const fs = require('fs')
+const path = require('path')
+const { faker } = require('@faker-js/faker')
+const YAML = require('yaml')
+const { emptyDirectory, formatDate } = require('./util')
 
 // setting OVERWRITE to `true` will overwrite existing test data
-let OVERWRITE = true;
-let VERBOSE_MODE = false;
+let OVERWRITE = true
+let VERBOSE_MODE = false
 
 // check incoming CLI arguments
 if (process.argv.indexOf('verbose') > -1) {
-  VERBOSE_MODE = true;
+  VERBOSE_MODE = true
 }
 
 // paths of interest
 // all test content resides in this directory.
-const testContentPath = path.join('./src', 'test', 'content');
+const testContentPath = path.join('./src', 'test', 'content')
 // specific content locations
-const instructorsFilePath = path.join(testContentPath, 'instructors.yaml');
-const coursesDirPath = path.join(testContentPath, 'courses');
-const schedulesDirPath = path.join(testContentPath, 'schedules');
+const instructorsFilePath = path.join(testContentPath, 'instructors.yaml')
+const coursesDirPath = path.join(testContentPath, 'courses')
+const schedulesDirPath = path.join(testContentPath, 'schedules')
 
 //
 
 // instructors
 function generateInstructor() {
-  const first_name = faker.person.firstName();
-  const last_name = faker.person.lastName();
-  const slug = faker.helpers.slugify(`${ first_name } ${ last_name }`);
-  const url = faker.internet.url();
+  const first_name = faker.person.firstName()
+  const last_name = faker.person.lastName()
+  const slug = faker.helpers.slugify(`${first_name} ${last_name}`)
+  const url = faker.internet.url()
 
   return {
     slug,
@@ -37,20 +37,20 @@ function generateInstructor() {
     url,
     affiliation: faker.company.name(),
     bio: faker.lorem.paragraph(5),
-  };
+  }
 }
 
 // courses
 function generateCourse() {
-  const title = faker.lorem.words(3);
-  const slug = faker.helpers.slugify(title);
+  const title = faker.lorem.words(3)
+  const slug = faker.helpers.slugify(title)
 
   return {
     slug,
     title,
     description: faker.lorem.paragraph(5),
     prereqs: faker.lorem.paragraph(1),
-  };
+  }
 }
 
 // schedules-class
@@ -58,18 +58,18 @@ function generateClass() {
   return {
     course: faker.helpers.arrayElement(courses).slug,
     instructor: faker.helpers.arrayElement(instructors).slug,
-    location: `Room ${ faker.location.buildingNumber() }`,
+    location: `Room ${faker.location.buildingNumber()}`,
     meeting_url: faker.internet.url(),
-  };
+  }
 }
 
 // schedules
 function generateSchedule(start_date) {
-  const name = `${ faker.lorem.word() } ${ start_date.getFullYear() }`;
-  const slug = faker.helpers.slugify(name);
+  const name = `${faker.lorem.word()} ${start_date.getFullYear()}`
+  const slug = faker.helpers.slugify(name)
   const dates = [...Array(5).keys()].map(i => {
-    let _date = new Date(start_date);
-    _date.setDate(_date.getDate() + i);
+    let _date = new Date(start_date)
+    _date.setDate(_date.getDate() + i)
     return formatDate(_date)
   })
 
@@ -98,14 +98,14 @@ function generateSchedule(start_date) {
         dates: [dates[3], dates[4]],
         classes: faker.helpers.multiple(generateClass, { count: 5 }),
       },
-    ]
-  };
+    ],
+  }
 }
 
 // generate instructors.
-const instructors = faker.helpers.multiple(generateInstructor, { count: 10 });
+const instructors = faker.helpers.multiple(generateInstructor, { count: 10 })
 // generate courses.
-const courses = faker.helpers.multiple(generateCourse, { count: 12 });
+const courses = faker.helpers.multiple(generateCourse, { count: 12 })
 // generate schedules.
 // first, we'll want to guarantee a few things about the dates
 // that get generated to align with expectations client-side.
@@ -123,41 +123,48 @@ const pastDates = [
   ...[...Array(4).keys()].map(_ => faker.date.past({ years: 2 })),
 ]
 // finally, we generate schedules with our dates.
-const schedules = [...futureDates, ...pastDates]
-  .map(date => generateSchedule(date))
+const schedules = [...futureDates, ...pastDates].map(date =>
+  generateSchedule(date)
+)
 
-VERBOSE_MODE && console.log('VERBOSE_MODE=true\n',
-  JSON.stringify({
-    instructors,
-    courses,
-    schedules,
-  }, null, 2)
-);
+VERBOSE_MODE &&
+  console.log(
+    'VERBOSE_MODE=true\n',
+    JSON.stringify(
+      {
+        instructors,
+        courses,
+        schedules,
+      },
+      null,
+      2
+    )
+  )
 console.log(`
- | successfully wrote to ${ testContentPath }:
- |   - ${ instructors.length } instructors
- |   - ${ courses.length } courses
- |   - ${ schedules.length } schedules
+ | successfully wrote to ${testContentPath}:
+ |   - ${instructors.length} instructors
+ |   - ${courses.length} courses
+ |   - ${schedules.length} schedules
 `)
 
 if (OVERWRITE) {
   // let's ensure all the content locations exist before proceeding.
-  [coursesDirPath, schedulesDirPath].forEach(path => {
+  ;[coursesDirPath, schedulesDirPath].forEach(path => {
     if (!fs.existsSync(path)) {
-      fs.mkdirSync(path, { recursive: true });
-    }  
+      fs.mkdirSync(path, { recursive: true })
+    }
   })
   // cleanout
-  emptyDirectory(testContentPath);
+  emptyDirectory(testContentPath)
   // write new content
-  fs.writeFileSync(instructorsFilePath, YAML.stringify(instructors, null, 2));
+  fs.writeFileSync(instructorsFilePath, YAML.stringify(instructors, null, 2))
   courses.forEach(course => {
-    courseFilePath = path.join(coursesDirPath, `${ course.slug }.yaml`);
-    fs.writeFileSync(courseFilePath, YAML.stringify(course, null, 2));
+    courseFilePath = path.join(coursesDirPath, `${course.slug}.yaml`)
+    fs.writeFileSync(courseFilePath, YAML.stringify(course, null, 2))
   })
   schedules.forEach(schedule => {
-    scheduleFilePath = path.join(schedulesDirPath, `${ schedule.slug }.yaml`);
-    fs.writeFileSync(scheduleFilePath, YAML.stringify(schedule, null, 2));
+    scheduleFilePath = path.join(schedulesDirPath, `${schedule.slug}.yaml`)
+    fs.writeFileSync(scheduleFilePath, YAML.stringify(schedule, null, 2))
   })
 } else {
   console.log('OVERWRITE=false: existing test data is preserved.')

@@ -32,7 +32,9 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
-        path: shouldUseTestContent ? `${__dirname}/src/test/content` : `${__dirname}/src/content`,
+        path: shouldUseTestContent
+          ? `${__dirname}/src/test/content`
+          : `${__dirname}/src/content`,
       },
     },
     `gatsby-transformer-yaml-full`,

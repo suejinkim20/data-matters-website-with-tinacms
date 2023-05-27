@@ -31,18 +31,20 @@ There are three core content types: Instructors, Courses, and Schedules.
 See types for these fields below; a "!" indicates a field is required.
 
 - **Courses**
-  + slug, String!, unique
-  + title, String
-  + description, String
-  + prereqs, String
+
+  - slug, String!, unique
+  - title, String
+  - description, String
+  - prereqs, String
 
 - **Instructor**
-  + slug String, unique
-  + first_name String!
-  + last_name String!
-  + url String
-  + affiliation String
-  + bio String
+
+  - slug String, unique
+  - first_name String!
+  - last_name String!
+  - url String
+  - affiliation String
+  - bio String
 
 - **Schedule**
   - name String!
@@ -50,17 +52,17 @@ See types for these fields below; a "!" indicates a field is required.
   - location String!
   - registration_url String
   - blocks:
-    * name: String!
+    - name: String!
       dates [DateString (MM/DD/YYYY format)]!
       classes [Class]
 
 where `Class` has this structure:
 
 - **Class**
-  + course String! ref course slug
-  + instructor String! ref instructor slug
-  + location: String
-  + meeting_url: String
+  - course String! ref course slug
+  - instructor String! ref instructor slug
+  - location: String
+  - meeting_url: String
 
 ### Content & the Build Process
 
@@ -84,7 +86,7 @@ bio: Veritatis error nihil. Deleniti rem culpa commodi rerum dolores tenetur
 YAML ""  --->   | gatsby-node.js |  --->  Object {}  --->   UI
                 |                |
                  ----------------
-````
+```
 
 Data comes out of the build process (as a result of code residing in `gatsby-node.js`) as JavaScript object for consumption by the UI. Some fields are added during this build step.
 
@@ -104,15 +106,15 @@ For example, consider again the above instructor YAML, which comes out with the 
 }
 ```
 
-Notice the object has a couple new fields: `full_name` and `path`. 
+Notice the object has a couple new fields: `full_name` and `path`.
 Here is a list of all new fields added at build time for each data type:
 
 - **instructors**
-    + new fields: path, full_name
+  - new fields: path, full_name
 - **courses**
-    + new fields: path
+  - new fields: path
 - **schdules**
-    + new fields: path, start_date
+  - new fields: path, start_date
 
 Additional fields whose values can be derived from the existing content fields should be added at this step. The goal is to reduce/eliminate redundancy, which help keep a clean code base. The benefit extends beyond the developer experience, though. We also want to minimize the effort required from content managers. To this end, most data massaging--especially computationally complex and reused derivations--should be done at this step, during the build, in `gatsby-node.js`, not in the client, with React.
 
@@ -130,8 +132,10 @@ This workflow should be followed when developing new features that involve data 
 
 1. Define feature and associated data alterations.
 2. Write tests (in `src/test/`) that will validate the desired data structure.
-  + Note: This test will fail at this point (with both real and test content) as the content remains untouched.
-3. Add functionality to `src/test/content-generator.js` to create content with the desired structure, *i.e.*, when `npm run generate` is executed.
+
+- Note: This test will fail at this point (with both real and test content) as the content remains untouched.
+
+3. Add functionality to `src/test/content-generator.js` to create content with the desired structure, _i.e._, when `npm run generate` is executed.
 4. Test with newly generated test data (`npm run test!`).
 5. Build UI support for restructured test content.
 6. Modify real content to desired new structure.

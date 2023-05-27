@@ -1,27 +1,27 @@
-import * as React from "react"
-import { Layout } from "../components/layout"
-import Seo from "../components/seo"
+import * as React from 'react'
+import { Layout } from '../components/layout'
+import Seo from '../components/seo'
 import { graphql } from 'gatsby'
-import { Details } from "../components/details"
-import { Link } from "../components/link"
+import { Details } from '../components/details'
+import { Link } from '../components/link'
 
 const CoursesPage = ({ data }) => {
-  const courses = data.courses.nodes.sort((c, d) => c.title < d.title ? -1 : 1)
+  const courses = data.courses.nodes.sort((c, d) =>
+    c.title < d.title ? -1 : 1
+  )
 
   return (
     <Layout>
       <h1>course catalog</h1>
       <ul>
-        {
-          courses.map(course => (
-            <li key={ course.id }>
-              <Link to={ course.path }>{ course.title }</Link>
-            </li>
-          ))
-        }
+        {courses.map(course => (
+          <li key={course.id}>
+            <Link to={course.path}>{course.title}</Link>
+          </li>
+        ))}
       </ul>
 
-      <Details title="data" data={ data } />
+      <Details title="data" data={data} />
     </Layout>
   )
 }
@@ -35,14 +35,16 @@ export const Head = () => <Seo title="Courses" />
 
 export default CoursesPage
 
-export const query = graphql`{
-  courses: allCoursesYaml {
-    nodes {
-      id
-      path
-      title
-      description
-      prereqs
+export const query = graphql`
+  {
+    courses: allCoursesYaml {
+      nodes {
+        id
+        path
+        title
+        description
+        prereqs
+      }
     }
   }
-}`
+`

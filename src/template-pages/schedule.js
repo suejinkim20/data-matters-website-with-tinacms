@@ -1,28 +1,24 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { Layout } from "../components/layout"
-import { Details } from "../components/details"
-import { Link } from "../components/link"
+import * as React from 'react'
+import { graphql } from 'gatsby'
+import { Layout } from '../components/layout'
+import { Details } from '../components/details'
+import { Link } from '../components/link'
 
-const Block = (block) => {
+const Block = block => {
   return (
     <div>
-      <h2>Block: { block.name }</h2>
-     
-      <p>
-        { block.dates.join(', ') }
-      </p>
+      <h2>Block: {block.name}</h2>
+
+      <p>{block.dates.join(', ')}</p>
 
       <ul>
-        {
-          block.classes.map((c, index) => (
-            <li key={ `class-${ index }` }>
-              <Link to={ c.course.path }>{ c.course.title }</Link>
-              &nbsp;
-              (<Link to={ c.instructor.path }>{ c.instructor.full_name }</Link>)
-            </li>
-          ))
-        }
+        {block.classes.map((c, index) => (
+          <li key={`class-${index}`}>
+            <Link to={c.course.path}>{c.course.title}</Link>
+            &nbsp; (<Link to={c.instructor.path}>{c.instructor.full_name}</Link>
+            )
+          </li>
+        ))}
       </ul>
     </div>
   )
@@ -34,19 +30,17 @@ function ScheduleTemplate({ data }) {
   return (
     <Layout>
       <Link to="/schedules">back to all schedules</Link>
-      <h1>{ schedule.name }</h1>
-      
-      <p>Location: { schedule.location }</p>
+      <h1>{schedule.name}</h1>
 
-      <Link to={ schedule.registration_url }>Register</Link>
+      <p>Location: {schedule.location}</p>
 
-      {
-        schedule.blocks.map((block, index) => (
-          <Block key={ `block-${ index }` } { ...block } />
-        ))
-      }
+      <Link to={schedule.registration_url}>Register</Link>
 
-      <Details title="data" data={ data } />
+      {schedule.blocks.map((block, index) => (
+        <Block key={`block-${index}`} {...block} />
+      ))}
+
+      <Details title="data" data={data} />
     </Layout>
   )
 }
