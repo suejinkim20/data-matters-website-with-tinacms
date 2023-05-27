@@ -4,16 +4,18 @@ const { faker } = require('@faker-js/faker')
 const YAML = require('yaml')
 const { emptyDirectory, formatDate } = require('./util')
 
-// setting OVERWRITE to `true` will overwrite existing test data
-let OVERWRITE = true
+// setting WRITE_MODE to `true` will overwrite existing test data
 let VERBOSE_MODE = false
+let WRITE_MODE = true
 
 // check incoming CLI arguments
 if (process.argv.indexOf('verbose') > -1) {
   VERBOSE_MODE = true
 }
+if (process.argv.indexOf('pretend') > -1) {
+  WRITE_MODE = false
+}
 
-// paths of interest
 // all test content resides in this directory.
 const testContentPath = path.join('./src', 'test', 'content')
 // specific content locations
@@ -28,13 +30,12 @@ function generateInstructor() {
   const first_name = faker.person.firstName()
   const last_name = faker.person.lastName()
   const slug = faker.helpers.slugify(`${first_name} ${last_name}`)
-  const url = faker.internet.url()
 
   return {
     slug,
     first_name,
     last_name,
-    url,
+    url: faker.internet.url(),
     affiliation: faker.company.name(),
     bio: faker.lorem.paragraph(5),
   }
@@ -53,7 +54,7 @@ function generateCourse() {
   }
 }
 
-// schedules-class
+// class
 function generateClass() {
   return {
     course: faker.helpers.arrayElement(courses).slug,
@@ -147,7 +148,7 @@ console.log(`
  |   - ${schedules.length} schedules
 `)
 
-if (OVERWRITE) {
+if (WRITE_MODE) {
   // let's ensure all the content locations exist before proceeding.
   ;[coursesDirPath, schedulesDirPath].forEach(path => {
     if (!fs.existsSync(path)) {
@@ -167,5 +168,5 @@ if (OVERWRITE) {
     fs.writeFileSync(scheduleFilePath, YAML.stringify(schedule, null, 2))
   })
 } else {
-  console.log('OVERWRITE=false: existing test data is preserved.')
+  console.log('WRITE_MODE=false: existing test data is preserved.')
 }

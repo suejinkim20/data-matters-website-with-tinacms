@@ -13,12 +13,17 @@ Start development server with `npm run start`.
 There is a script to generate test content data, which will be dumped into the `src/test/content` directory.
 
 To generate new test content, run `npm run generate`.
-Pass the `--- verbose` flag to dump the generated content to the console for visual inspection.
+There are a few arguments that can be passed to control this script's behavior.
+Recall that pattern is `npm run [command] [-- <args>]`.
+Passing `verbose` will dump the generated content to the console for visual inspection.
+To do a content-generation dry-run, pass `pretend`.
+For example, `npm run generate -- verbose pretend` will show you lots of generated data, but not write anything to disk.
+This command is particularly useful for getting quick feedback while writing new content-generation functionality.
 
 > Note: Test content is not tracked by version control, as the content generator should be sufficient for every developer to generate comparable content that meets the requirements of the UI.
 
 To start development server with test content as data source, run `npm run start!`.
-This is the same a the above run command, but with a `!` appended.
+This is the same a the above `run` command, but with a `!` appended.
 
 > Note: The `start`, `test`, and `build` scripts all interface with content and have test-content-focused counterparts,
 > which have the same command with an appended `!`. For example, to build a production bundle of the site with real
@@ -44,37 +49,41 @@ See types for these fields below; a "!" indicates a field is required.
 
 - **Courses**
 
-  - slug, String!, unique
-  - title, String
-  - description, String
-  - prereqs, String
+  - `slug`, `String!`, unique
+  - `title`, `String`
+  - `description`, `String`
+  - `prereqs`, `String`
 
 - **Instructor**
 
-  - slug String, unique
-  - first_name String!
-  - last_name String!
-  - url String
-  - affiliation String
-  - bio String
+  - `slug` `String`, unique
+  - `first_name` `String!`
+  - `last_name` `String!`
+  - `url` `String`
+  - `affiliation` `String`
+  - `bio` `String`
 
 - **Schedule**
-  - name String!
-  - slug String!, unique
-  - location String!
-  - registration_url String
-  - blocks:
-    - name: String!
-      dates [DateString (MM/DD/YYYY format)]!
-      classes [Class]
+  - `name` `String!`
+  - `slug` `String!`, unique
+  - `location` `String!`
+  - `registration_url` `String`
+  - `blocks`
+    - `name` `String!`
+      `dates` `[DateString (MM/DD/YYYY format)]!`
+      `classes` `[Class]`
 
 where `Class` has this structure:
 
 - **Class**
-  - course String! ref course slug
-  - instructor String! ref instructor slug
-  - location: String
-  - meeting_url: String
+
+  - `course` `String!` ref course `slug`
+  - `instructor` `String!` ref instructor `slug`
+  - `location`: `String`
+    - `meeting_url`: `String`
+
+It is safe to think of `slug` as the `id` field, but it shoud be noted that Gatsby adds its own UUID field called `id` under the hood.
+Using `slug` as the identifier helps developers keep the relationship between the content artifacts and the URL at top of mind.
 
 ### Content & the Build Process
 
@@ -122,17 +131,17 @@ Notice the object has a couple new fields: `full_name` and `path`.
 Here is a list of all new fields added at build time for each data type:
 
 - **instructors**
-  - new fields: path, full_name
+  - new fields: `path`, `full_name`
 - **courses**
-  - new fields: path
+  - new fields: `path`
 - **schdules**
-  - new fields: path, start_date
+  - new fields: `path`, `start_date`
 
 Additional fields whose values can be derived from the existing content fields should be added at this step. The goal is to reduce/eliminate redundancy, which help keep a clean code base. The benefit extends beyond the developer experience, though. We also want to minimize the effort required from content managers. To this end, most data massaging--especially computationally complex and reused derivations--should be done at this step, during the build, in `gatsby-node.js`, not in the client, with React.
 
-See Gatsby's documentation on [Customizing the GraphQL Schema](https://www.gatsbyjs.com/docs/reference/graphql-data-layer/schema-customization/) for details on how this is done.
+See Gatsby's documentation on [Customizing the GraphQL Schema](https://www.gatsbyjs.com/docs/reference/graphql-data-layer/schema-customization/) for details on how this can be done.
 
-## Feature Development
+🔨 ## Feature Development
 
 Ensuring the UI stays predictable is key to its sustainability and success. To help increase the probability of producing a stable application, we'll adhere to a test-driven workflow.
 
@@ -145,7 +154,7 @@ This workflow should be followed when developing new features that involve data 
 1. Define feature and associated data alterations.
 2. Write tests (in `src/test/`) that will validate the desired data structure.
 
-- Note: This test will fail at this point (with both real and test content) as the content remains untouched.
+- Note: This test will fail (with both real and test content) as the content remains untouched at this point.
 
 3. Add functionality to `src/test/content-generator.js` to create content with the desired structure, _i.e._, when `npm run generate` is executed.
 4. Test with newly generated test data (`npm run test!`).
@@ -156,11 +165,12 @@ This workflow should be followed when developing new features that involve data 
 Adhering to this workflow means any developer can spin up a local instance of the application with realistic test data at any time. This provides a consistent way to test new features against a suite of content that satisfies the requirements of the UI, including edge cases.
 The test suite will mature alongside the code base, helping to enforce structure requirements along the way.
 
-# 🎁 Building for Production
+## 🎁 Building for Production
 
-Build a production bundle of this application with `npm run build`.
-The bundle will reside in the `public` directory.
+Build a production bundle of this application with `npm run build`, which reside in the `public` directory.
 
-Test the built application with `npm run serve`, which will serve the application at http://localhost:9000/.
+Running `npm run serve` will serve the application at http://localhost:9000/.
+
+## 🚀 Deployment
 
 Deployment notes TBD.
