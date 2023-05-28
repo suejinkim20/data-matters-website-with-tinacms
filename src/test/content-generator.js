@@ -4,6 +4,8 @@ const { faker } = require('@faker-js/faker')
 const YAML = require('yaml')
 const { emptyDirectory, formatDate } = require('./util')
 
+const slugify = text => faker.helpers.slugify(text).toLowerCase()
+
 // setting WRITE_MODE to `true` will overwrite existing test data
 let VERBOSE_MODE = false
 let WRITE_MODE = true
@@ -29,7 +31,7 @@ const schedulesDirPath = path.join(testContentPath, 'schedules')
 function generateInstructor() {
   const first_name = faker.person.firstName()
   const last_name = faker.person.lastName()
-  const slug = faker.helpers.slugify(`${first_name} ${last_name}`)
+  const slug = slugify(`${first_name} ${last_name}`)
 
   return {
     slug,
@@ -44,7 +46,7 @@ function generateInstructor() {
 // courses
 function generateCourse() {
   const title = faker.lorem.words(3)
-  const slug = faker.helpers.slugify(title)
+  const slug = slugify(title)
 
   return {
     slug,
@@ -67,7 +69,7 @@ function generateClass() {
 // schedules
 function generateSchedule(start_date) {
   const name = `${faker.lorem.word()} ${start_date.getFullYear()}`
-  const slug = faker.helpers.slugify(name)
+  const slug = slugify(name)
   const dates = [...Array(5).keys()].map(i => {
     let _date = new Date(start_date)
     _date.setDate(_date.getDate() + i)
