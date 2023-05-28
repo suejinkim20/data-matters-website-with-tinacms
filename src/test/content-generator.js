@@ -7,26 +7,39 @@ const arg = require('arg')
 
 const slugify = text => faker.helpers.slugify(text).toLowerCase()
 
-// setting WRITE_MODE to `true` will overwrite existing test data
-let VERBOSE_MODE = false
-let WRITE_MODE = true
-
-// check incoming command line arguments
+// store incoming command line arguments
 const args = arg({
   // types
   '--verbose': Boolean,
   '--pretend': Boolean,
+  '--instructors': Number,
+  '--courses': Number,
+  '--schedules': Number,
   // aliases
   '-v': '--verbose',
   '-p': '--pretend',
+  '-i': '--instructors',
+  '-c': '--courses',
+  '-s': '--schedules',
 })
-
+// ^ couldn't hurt to add a --help, -h flag.
+// MODE defaults
+// - VERBOSE=true : console.log the generator entities
+// - WRITE_MODE=true : overwrite existing test data
+let VERBOSE_MODE = false
+let WRITE_MODE = true
+// overwrite defaults as available
 if (args['--verbose']) {
   VERBOSE_MODE = true
 }
 if (args['--pretend']) {
   WRITE_MODE = false
 }
+const COUNTS = {
+  instructors: args['--instructors'] > 0 ? args['--instructors'] : 12,
+  courses: args['--courses'] > 0 ? args['--courses'] : 15,
+}
+// ^ it feels like there's some tidying up/abstraction that could be done here.
 
 // all test content resides in this directory.
 const testContentPath = path.join('./src', 'test', 'content')
@@ -116,9 +129,13 @@ function generateSchedule(start_date) {
 }
 
 // generate instructors.
-const instructors = faker.helpers.multiple(generateInstructor, { count: 10 })
+const instructors = faker.helpers.multiple(generateInstructor, {
+  count: COUNTS.instructors,
+})
 // generate courses.
-const courses = faker.helpers.multiple(generateCourse, { count: 12 })
+const courses = faker.helpers.multiple(generateCourse, {
+  count: COUNTS.courses,
+})
 // generate schedules.
 // first, we'll want to guarantee a few things about the dates
 // that get generated to align with expectations client-side.
