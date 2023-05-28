@@ -30,6 +30,7 @@
   ],
   "license": "0BSD",
   "scripts": {
+    "build!": "TEST_CONTENT=true gatsby build",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
