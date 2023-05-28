@@ -15,9 +15,9 @@ There is a script to generate test content data, which will be dumped into the `
 To generate new test content, run `npm run generate`.
 There are a few arguments that can be passed to control this script's behavior.
 Recall that pattern is `npm run [command] [-- <args>]`.
-Passing `verbose` will dump the generated content to the console for visual inspection.
-To do a content-generation dry-run, pass `pretend`.
-For example, `npm run generate -- verbose pretend` will show you lots of generated data, but not write anything to disk.
+Passing `--verbose` (or just `-v` for short) will dump the generated content to the console for visual inspection.
+To do a content-generation dry-run, pass `--pretend` (or just `-p` for short).
+For example, `npm run generate -- -pv` will show you lots of generated data (`-p`), but not write anything to disk (`-p`).
 This command is particularly useful for getting quick feedback while writing new content-generation functionality.
 
 > Note: Test content is not tracked by version control, as the content generator should be sufficient for every developer to generate comparable content that meets the requirements of the UI.

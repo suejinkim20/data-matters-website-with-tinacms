@@ -3,6 +3,7 @@ const path = require('path')
 const { faker } = require('@faker-js/faker')
 const YAML = require('yaml')
 const { emptyDirectory, formatDate } = require('./util')
+const arg = require('arg')
 
 const slugify = text => faker.helpers.slugify(text).toLowerCase()
 
@@ -10,11 +11,20 @@ const slugify = text => faker.helpers.slugify(text).toLowerCase()
 let VERBOSE_MODE = false
 let WRITE_MODE = true
 
-// check incoming CLI arguments
-if (process.argv.indexOf('verbose') > -1) {
+// check incoming command line arguments
+const args = arg({
+  // types
+  '--verbose': Boolean,
+  '--pretend': Boolean,
+  // aliases
+  '-v': '--verbose',
+  '-p': '--pretend',
+})
+
+if (args['--verbose']) {
   VERBOSE_MODE = true
 }
-if (process.argv.indexOf('pretend') > -1) {
+if (args['--pretend']) {
   WRITE_MODE = false
 }
 
