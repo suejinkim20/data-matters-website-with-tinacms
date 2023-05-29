@@ -1,6 +1,13 @@
 const path = require('path')
 const { formatDate } = require('./src/test/util')
 
+const findScheduleStartDate = schedule => {
+  const dates = schedule.blocks
+    .reduce((dates, block) => [...dates, ...block.dates], [])
+    .sort((d, e) => (new Date(d) < new Date(e) ? -1 : 1))
+  return dates[0]
+}
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createFieldExtension, createTypes } = actions
 
@@ -93,36 +100,37 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs)
 }
 
-// TODO: fix this resolver
-// exports.createResolvers = ({ createResolvers }) => {
-//   const resolvers = {
-//     InstructorsYaml: {
-//       classes: {
-//         type: ["CoursesYaml"],
-//         resolve: async (source, args, context, info) => {
-//           const { entries } = await context.nodeModel.findAll({
-//             query: {
-//               filter: {
-//                 blocks: {
-//                   classes: {
-//                     instructor: {
-//                       slug: {
-//                         eq: source.instructor,
-//                       },
-//                     },
-//                   },
-//                 },
-//               },
-//             },
-//             type: "SchedulesYaml",
-//           })
-//           return entries
-//         },
-//       },
-//     },
-//   }
-//   createResolvers(resolvers)
-// }
+exports.createResolvers = ({ createResolvers }) => {
+  const resolvers = {
+    Query: {
+      allUpcomingSchedules: {
+        type: [`SchedulesYaml`],
+        resolve: async (source, args, context, info) => {
+          const { entries } = await context.nodeModel.findAll({
+            type: `SchedulesYaml`,
+          })
+          return entries.filter(schedule => {
+            const startDate = findScheduleStartDate(schedule)
+            return new Date(startDate) > new Date()
+          })
+        },
+      },
+      allPastSchedules: {
+        type: [`SchedulesYaml`],
+        resolve: async (source, args, context, info) => {
+          const { entries } = await context.nodeModel.findAll({
+            type: `SchedulesYaml`,
+          })
+          return entries.filter(schedule => {
+            const startDate = findScheduleStartDate(schedule)
+            return new Date(startDate) < new Date()
+          })
+        },
+      },
+    },
+  }
+  createResolvers(resolvers)
+}
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions

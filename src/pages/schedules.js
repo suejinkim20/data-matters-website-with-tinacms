@@ -5,22 +5,32 @@ import { Details } from '../components/details'
 import { Link } from '../components/link'
 
 const SchedulesPage = ({ data }) => {
-  const schedules = data.schedules.nodes
-  const today = new Date()
-  const upcomingSchedules = schedules
-    // select only the schedules starting in the future.
-    .filter(schedule => today < new Date(schedule.start_date))
-    .sort(schedule => schedule.start_date)
+  const { allUpcomingSchedules, allPastSchedules } = data
 
   return (
     <Fragment>
       <h1>schedules</h1>
+
+      <h2>upcoming</h2>
       <ul>
-        {upcomingSchedules.map(schedule => (
-          <li key={schedule.id}>
-            <Link to={schedule.path}>{schedule.name}</Link>
-          </li>
-        ))}
+        {allUpcomingSchedules
+          .sort((s, t) => (s.start_date < t.start_date ? -1 : 1))
+          .map(schedule => (
+            <li key={schedule.id}>
+              <Link to={schedule.path}>{schedule.name}</Link>
+            </li>
+          ))}
+      </ul>
+
+      <h2>past</h2>
+      <ul>
+        {allPastSchedules
+          .sort((s, t) => (s.start_date > t.start_date ? -1 : 1))
+          .map(schedule => (
+            <li key={schedule.id}>
+              <Link to={schedule.path}>{schedule.name}</Link>
+            </li>
+          ))}
       </ul>
 
       <Details title="data" data={data} />
@@ -39,13 +49,17 @@ export default SchedulesPage
 
 export const query = graphql`
   {
-    schedules: allSchedulesYaml {
-      nodes {
-        id
-        name
-        path
-        start_date(formatString: "YYYY-MM-DD")
-      }
+    allUpcomingSchedules {
+      id
+      name
+      path
+      start_date(formatString: "YYYY-MM-DD")
+    }
+    allPastSchedules {
+      id
+      name
+      path
+      start_date(formatString: "YYYY-MM-DD")
     }
   }
 `
