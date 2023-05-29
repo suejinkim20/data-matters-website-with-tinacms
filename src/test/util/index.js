@@ -32,7 +32,7 @@ function formatDate(dateObject) {
       ? `0${dateObject.getDate()}`
       : dateObject.getDate()
   const yyyy = dateObject.getFullYear()
-  return `${mm}/${dd}/${yyyy}`
+  return `${yyyy}-${mm}-${dd}`
 }
 
 function hasDistinctElements(arr) {

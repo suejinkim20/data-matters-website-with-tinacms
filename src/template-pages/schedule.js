@@ -54,7 +54,7 @@ export const pageQuery = graphql`
       registration_url
       blocks {
         name
-        dates
+        dates(formatString: "YYYY-MM-DD")
         classes {
           course {
             title

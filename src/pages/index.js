@@ -79,7 +79,7 @@ export const query = graphql`
         id
         name
         path
-        start_date
+        start_date(formatString: "YYYY-MM-DD")
         registration_url
         blocks {
           dates

@@ -1,4 +1,5 @@
 const path = require('path')
+const { formatDate } = require('./src/test/util')
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createFieldExtension, createTypes } = actions
@@ -58,7 +59,7 @@ exports.createSchemaCustomization = ({ actions }) => {
           const thisBlocksDates = source.blocks
             .reduce((dates, block) => [...dates, ...block.dates], [])
             .sort((d, e) => (new Date(d) < new Date(e) ? -1 : 1))
-          return thisBlocksDates[0]
+          return new Date(thisBlocksDates[0]).toISOString()
         },
       }
     },
@@ -76,7 +77,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     `type SchedulesYaml implements Node {
       blocks: [Block!]
       path: String! @schedule_path
-      start_date: String! @schedule_start_date
+      start_date: Date! @schedule_start_date @dateformat
     }`,
     `type InstructorsYaml implements Node {
       firstName: String! @proxy(from: "first_name")
