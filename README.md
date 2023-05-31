@@ -156,7 +156,7 @@ See Gatsby's documentation on [Customizing the GraphQL Schema](https://www.gatsb
 ## 🔨 Feature Development
 
 Ensuring the UI stays predictable is key to its sustainability and success.
-To help increase the probability of producing a stable application, we'll adhere to a test-driven workflow.
+To help increase the probability of producing a stable application, we'll adhere to a test-driven development workflow.
 
 ### Workflow
 
@@ -166,9 +166,7 @@ This workflow should be followed when developing new features that involve data 
 
 1. Define feature and associated data alterations.
 2. Write tests (in `src/test/`) that will validate the desired data structure.
-
-- Note: This test will fail (with both real and test content) as the content remains untouched at this point.
-
+   > Note: This test will fail (with both real and test content) as the content remains untouched at this point.
 3. Add functionality to `src/test/content-generator.js` to create content with the desired structure, _i.e._, when `npm run generate` is executed.
 4. Test with newly generated test data (`npm run test!`).
 5. Build UI support for restructured test content.
@@ -183,7 +181,7 @@ The test suite will mature alongside the code base, helping to enforce structure
 
 Build a production bundle of this application with `npm run build`, which reside in the `public` directory.
 
-Running `npm run serve` will serve the application at http://localhost:9000/.
+To test things out, run `npm run serve` to serve the built application at http://localhost:9000/.
 
 ## 🚀 Deployment
 
