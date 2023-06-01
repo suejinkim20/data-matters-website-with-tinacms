@@ -84,7 +84,7 @@ See types for these fields below, with their necessity and uniquess indicated.
   - `registration_url` : `String`
   - `blocks` :
     - `name` : `String`, required
-    - `dates` : `[DateString (MM/DD/YYYY format)]`
+    - `dates` : `[Date)]`, YYYY-MM-DD format
     - `classes` : `[Class]`
 
 where `Class` has this structure:
