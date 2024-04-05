@@ -8,7 +8,7 @@ const CoursesPage = ({ data }) => {
   const courses = data.courses.nodes.sort((c, d) =>
     c.title < d.title ? -1 : 1
   )
-
+  
   return (
     <Fragment>
       <h1>course catalog</h1>

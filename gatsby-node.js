@@ -1,5 +1,10 @@
 const path = require('path')
 const { formatDate } = require('./src/test/util')
+const express = require("express");
+
+exports.onCreateDevServer = ({ app }) => {
+  app.use("/admin", express.static("public/admin"));
+};
 
 const findScheduleStartDate = schedule => {
   const dates = schedule.blocks
